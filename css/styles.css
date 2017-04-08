@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#port_logo {
+    width: 80px;
+    margin-left: 10px;
+}
+
+.Computer_Entry {
+    background-color: green;
+    float: left;
+    width: 250px;
+    height: 120px;
+    padding: 10px;
+    margin: 10px;
+    border-color: black;
+    border-style: solid;
+}
+
+p {
+    margin: 10px;
+    font-size: 20px;
+    font-family: sans-serif;
+}
