@@ -19,6 +19,11 @@ body {
     border-style: solid;
 }
 
+h1{
+  margin-left: 10px;
+  font-family: sans-serif;
+}
+
 p {
     margin: 10px;
     font-size: 20px;

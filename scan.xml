@@ -39,7 +39,7 @@
 <times srtt="-92725" rttvar="40296" to="100000"/>
 </host>
 <host starttime="1491595937" endtime="1491595944"><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.0.144" addrtype="ipv4"/>
+<address addr="192.168.0.200" addrtype="ipv4"/>
 <address addr="80:86:F2:92:B6:34" addrtype="mac" vendor="Intel Corporate"/>
 <hostnames>
 <hostname name="LPT-TEC-2485.esa-ad.esa.int" type="PTR"/>
