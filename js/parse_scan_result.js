@@ -1,3 +1,9 @@
+function Start()
+{
+    Read_XML();
+    setInterval(Read_XML, 60 * 100);
+}
+
 function Read_XML() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -9,22 +15,20 @@ function Read_XML() {
     xhttp.send();
 }
 
-//global array
+//global variable array
 var Computers = [];
 var IPs = [];
+var Scan_Time = "today";
 
 function Scan(xml) {
     //the general xml handler
     var xmlDoc = xml.responseXML;
 
     //write down the scan time
-    var Scan_Time = xmlDoc.getElementsByTagName("nmaprun")[0].getAttribute("startstr");
-    var Scan_Time_Headline = document.createElement("h1");
-    Scan_Time_Headline.innerHTML = "Scan time: " + Scan_Time;
-    document.body.appendChild(Scan_Time_Headline);
-
+    Scan_Time = xmlDoc.getElementsByTagName("nmaprun")[0].getAttribute("startstr");
     var Num_Hosts = xmlDoc.getElementsByTagName("host").length;
-
+    var Computers_New = [];
+    //looping throught the xml entries
     for (var i = 0; i < Num_Hosts; i++) {
         var Host_Element = xmlDoc.getElementsByTagName("host")[i];
         var IP_Address = Host_Element.getElementsByTagName("address")[0].getAttribute("addr");
@@ -54,17 +58,77 @@ function Scan(xml) {
             "HTTP": HTTP_State
         };
         IPs.push(IP_Address)
-        Computers.push(Computer);
+        Computers_New.push(Computer);
     } //end for loop
     //var IP_Address = xmlDoc.getElementsByTagName("nmaprun")[0].childNodes[0].nodeName;
-    Computers.sort(function(a, b) {
+    Computers_New.sort(function(a, b) {
         return dot2num(a.IP) - dot2num(b.IP);
     });
-    Display()
+
+    //check for lost computers
+    var missed = false;
+    for (var old_c in Computers) {
+            var Computer_Counter = 0;
+        for(var new_c in Computers_New)
+        {
+
+            if (Computers_New[new_c].IP == Computers[old_c].IP)
+            {
+                //we found the same IP so we can move on
+                missed = false;
+                break;
+            }
+            Computer_Counter++;
+            if (Computer_Counter == Computers_New.length)
+            {
+                //The computer is not here - we looking in the complete array
+                console.log("One computer is missing");
+                missed = true;
+            }
+        }
+
+    }
+    Computers = Computers_New;
+    Display();
+}
+
+function Remove_Old_Elements()
+{
+    //remove the old headline
+    var r1 = document.getElementById("Scan_Time_ID");
+    if (r1) {
+        r1.parentNode.removeChild(r1);
+    }
+
+    var r2 = document.getElementById("parent");
+    if (r2) {
+        r2.parentNode.removeChild(r2);
+    }
+/*
+    //remove the old entries
+    var r3 = document.getElementById("parent");
+    if (r3)
+    {
+        while (r3.hasChildNodes())
+        {
+            r3.removeChild(r2.lastChild);
+        }
+    }*/
 }
 
 function Display() {
     //preparations for the page design
+    //remove all older elements
+    console.log("Display called");
+    //add the headline for the scantime
+    //remove the old headline first
+    Remove_Old_Elements()
+
+    var Scan_Time_Headline = document.createElement("h1");
+    Scan_Time_Headline.id = "Scan_Time_ID"
+    Scan_Time_Headline.innerHTML = "Scan time: " + Scan_Time;
+    document.body.appendChild(Scan_Time_Headline);
+
     var parent_div = document.createElement("div")
     parent_div.id = "parent"
     document.body.appendChild(parent_div);

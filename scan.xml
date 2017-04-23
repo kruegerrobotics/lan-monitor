@@ -3,62 +3,67 @@
 <?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
 <!-- Nmap 7.40 scan initiated Fri Apr  7 22:12:17 2017 as: nmap -p 22,80 -oX scan.xml 192.168.0.0/24 -->
 <nmaprun scanner="nmap" args="nmap -p 22,80 -oX scan.xml 192.168.0.0/24" start="1491595937" startstr="Fri Apr  7 22:12:17 2017" version="7.40" xmloutputversion="1.04">
-<scaninfo type="syn" protocol="tcp" numservices="2" services="22,80"/>
-<verbose level="0"/>
-<debugging level="0"/>
-<host starttime="1491595937" endtime="1491595943"><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.0.1" addrtype="ipv4"/>
-<address addr="C4:E9:84:F3:89:DF" addrtype="mac" vendor="Tp-link Technologies"/>
-<hostnames>
-</hostnames>
-<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
-</ports>
-<times srtt="-152890" rttvar="84883" to="186642"/>
-</host>
-<host starttime="1491595937" endtime="1491595943"><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.0.2" addrtype="ipv4"/>
-<address addr="B8:27:EB:91:58:16" addrtype="mac" vendor="Raspberry Pi Foundation"/>
-<hostnames>
-<hostname name="dnsserver.tk.home" type="PTR"/>
-</hostnames>
-<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="closed" reason="reset" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
-</ports>
-<times srtt="-115137" rttvar="109481" to="322787"/>
-</host>
-<host starttime="1491595937" endtime="1491595944"><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.0.126" addrtype="ipv4"/>
-<address addr="80:56:F2:B6:DA:1E" addrtype="mac" vendor="Hon Hai Precision Ind."/>
-<hostnames>
-<hostname name="Thomas-XPC.tk.home" type="PTR"/>
-</hostnames>
-<ports><port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
-</ports>
-<times srtt="-92725" rttvar="40296" to="100000"/>
-</host>
-<host starttime="1491595937" endtime="1491595944"><status state="up" reason="arp-response" reason_ttl="0"/>
-<address addr="192.168.0.200" addrtype="ipv4"/>
-<address addr="80:86:F2:92:B6:34" addrtype="mac" vendor="Intel Corporate"/>
-<hostnames>
-<hostname name="LPT-TEC-2485.esa-ad.esa.int" type="PTR"/>
-</hostnames>
-<ports><port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
-</ports>
-<times srtt="-200017" rttvar="5000" to="100000"/>
-</host>
-<host starttime="1491595944" endtime="1491595944"><status state="up" reason="localhost-response" reason_ttl="0"/>
-<address addr="192.168.0.147" addrtype="ipv4"/>
-<hostnames>
-<hostname name="rtems-vm.tk.home" type="PTR"/>
-</hostnames>
-<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
-</ports>
-<times srtt="23" rttvar="3754" to="100000"/>
-</host>
-<runstats><finished time="1491595944" timestr="Fri Apr  7 22:12:24 2017" elapsed="7.14" summary="Nmap done at Fri Apr  7 22:12:24 2017; 256 IP addresses (5 hosts up) scanned in 7.14 seconds" exit="success"/><hosts up="5" down="251" total="256"/>
-</runstats>
+    <scaninfo type="syn" protocol="tcp" numservices="2" services="22,80"/>
+    <verbose level="0"/>
+    <debugging level="0"/>
+    <host starttime="1491595937" endtime="1491595943"><status state="up" reason="arp-response" reason_ttl="0"/>
+        <address addr="192.168.0.1" addrtype="ipv4"/>
+        <address addr="C4:E9:84:F3:89:DF" addrtype="mac" vendor="Tp-link Technologies"/>
+        <hostnames></hostnames>
+        <ports>
+            <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" method="table" conf="3"/></port>
+            <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+        </ports>
+        <times srtt="-152890" rttvar="84883" to="186642"/>
+    </host>
+    <host starttime="1491595937" endtime="1491595943"><status state="up" reason="arp-response" reason_ttl="0"/>
+        <address addr="192.168.0.2" addrtype="ipv4"/>
+        <address addr="B8:27:EB:91:58:16" addrtype="mac" vendor="Raspberry Pi Foundation"/>
+        <hostnames>
+            <hostname name="dnsserver.tk.home" type="PTR"/>
+        </hostnames>
+        <ports>
+            <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" method="table" conf="3"/></port>
+            <port protocol="tcp" portid="80"><state state="closed" reason="reset" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+        </ports>
+        <times srtt="-115137" rttvar="109481" to="322787"/>
+    </host>
+    <host starttime="1491595937" endtime="1491595944"><status state="up" reason="arp-response" reason_ttl="0"/>
+        <address addr="192.168.0.126" addrtype="ipv4"/>
+        <address addr="80:56:F2:B6:DA:1E" addrtype="mac" vendor="Hon Hai Precision Ind."/>
+        <hostnames>
+            <hostname name="Thomas-XPC.tk.home" type="PTR"/>
+        </hostnames>
+        <ports>
+            <port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+            <port protocol="tcp" portid="80"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+        </ports>
+        <times srtt="-92725" rttvar="40296" to="100000"/>
+    </host>
+    <host starttime="1491595937" endtime="1491595944"><status state="up" reason="arp-response" reason_ttl="0"/>
+        <address addr="192.168.0.200" addrtype="ipv4"/>
+        <address addr="80:86:F2:92:B6:34" addrtype="mac" vendor="Intel Corporate"/>
+        <hostnames>
+            <hostname name="LPT-TEC-2485.esa-ad.esa.int" type="PTR"/>
+        </hostnames>
+        <ports>
+            <port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+            <port protocol="tcp" portid="80"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+        </ports>
+        <times srtt="-200017" rttvar="5000" to="100000"/>
+    </host>
+    <host starttime="1491595944" endtime="1491595944"><status state="up" reason="localhost-response" reason_ttl="0"/>
+        <address addr="192.168.0.147" addrtype="ipv4"/>
+        <hostnames>
+            <hostname name="rtems-vm.tk.home" type="PTR"/>
+        </hostnames>
+        <ports>
+            <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" method="table" conf="3"/></port>
+            <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+        </ports>
+        <times srtt="23" rttvar="3754" to="100000"/>
+    </host>
+    
+    <runstats><finished time="1491595944" timestr="Fri Apr  7 22:12:24 2017" elapsed="7.14" summary="Nmap done at Fri Apr  7 22:12:24 2017; 256 IP addresses (5 hosts up) scanned in 7.14 seconds" exit="success"/><hosts up="5" down="251" total="256"/>
+    </runstats>
 </nmaprun>
