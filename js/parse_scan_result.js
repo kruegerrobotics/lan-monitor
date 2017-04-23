@@ -55,7 +55,8 @@ function Scan(xml) {
             "Hostname": Hostname,
             "IP": IP_Address,
             "SSH": SSH_State,
-            "HTTP": HTTP_State
+            "HTTP": HTTP_State,
+            "Deactivated" : false
         };
         IPs.push(IP_Address)
         Computers_New.push(Computer);
@@ -82,8 +83,15 @@ function Scan(xml) {
             if (Computer_Counter == Computers_New.length)
             {
                 //The computer is not here - we looking in the complete array
-                console.log("One computer is missing");
+                var Missing_Computer = {
+                    "Hostname": Computers[old_c].Hostname,
+                    "IP": Computers[old_c].IP,
+                    "SSH": Computers[old_c].SHH,
+                    "HTTP": Computers[old_c].HTTP,
+                    "Deactivated" : true
+                };
                 missed = true;
+                Computers_New.push(Missing_Computer);
             }
         }
 
@@ -147,6 +155,10 @@ function Display() {
         document.getElementById(parent_div.id).appendChild(child_input);
         document.getElementById(child_input.id).appendChild(Elem_IP);
         document.getElementById(child_input.id).appendChild(Elem_Name);
+
+        if (Computers[i].Deactivated == true){
+            child_input.style.backgroundColor = "DarkGrey";
+        }
 
         if (Computers[i].SSH == "open") {
             Elem_SSH_Img = document.createElement("img");
