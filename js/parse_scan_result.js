@@ -1,7 +1,7 @@
 function Start()
 {
     Read_XML();
-    setInterval(Read_XML, 60 * 100);
+    setInterval(Read_XML, 60 * 1000);
 }
 
 function Read_XML() {
@@ -45,7 +45,6 @@ function Scan(xml) {
         for (var j = 0; j < Ports_Element.length; j++) {
             var Port_ID = Ports_Element[j].getAttribute("portid");
             var Port_Status = Ports_Element[j].getElementsByTagName("state")[0].getAttribute("state");
-            //console.log("Name: " + Hostname + " Portid: " + Port_ID + " status: " + Port_Status);
         }
         var SSH_State = Ports_Element[0].getElementsByTagName("state")[0].getAttribute("state");
         var HTTP_State = Ports_Element[1].getElementsByTagName("state")[0].getAttribute("state");
@@ -61,12 +60,8 @@ function Scan(xml) {
         IPs.push(IP_Address)
         Computers_New.push(Computer);
     } //end for loop
-    //var IP_Address = xmlDoc.getElementsByTagName("nmaprun")[0].childNodes[0].nodeName;
-    Computers_New.sort(function(a, b) {
-        return dot2num(a.IP) - dot2num(b.IP);
-    });
 
-    //check for lost computers
+    //check for lost/deactivated computers (they should be displayed grayed out)
     var missed = false;
     for (var old_c in Computers) {
             var Computer_Counter = 0;
@@ -96,6 +91,9 @@ function Scan(xml) {
         }
 
     }
+    Computers_New.sort(function(a, b) {
+        return dot2num(a.IP) - dot2num(b.IP);
+    });
     Computers = Computers_New;
     Display();
 }
@@ -125,10 +123,7 @@ function Remove_Old_Elements()
 }
 
 function Display() {
-    //preparations for the page design
     //remove all older elements
-    console.log("Display called");
-    //add the headline for the scantime
     //remove the old headline first
     Remove_Old_Elements()
 
@@ -136,11 +131,9 @@ function Display() {
     Scan_Time_Headline.id = "Scan_Time_ID"
     Scan_Time_Headline.innerHTML = "Scan time: " + Scan_Time;
     document.body.appendChild(Scan_Time_Headline);
-
     var parent_div = document.createElement("div")
     parent_div.id = "parent"
     document.body.appendChild(parent_div);
-
     var Num_Hosts = Computers.length;
 
     for (var i in Computers) {
