@@ -157,16 +157,19 @@ function Display() {
             Elem_SSH_Img = document.createElement("img");
             Elem_SSH_Img.src = "img/SSH_logo.png";
             Elem_SSH_Img.id = "port_logo";
-            //Elem_SSH_Img.style = "width:80px;margin:10px";
             document.getElementById(child_input.id).appendChild(Elem_SSH_Img);
         }
 
         if (Computers[i].HTTP == "open") {
+            var Elem_HTTP_Link = document.createElement("a");
+            Elem_HTTP_Link.href = "http://" + Computers[i].IP;
+            Elem_HTTP_Link.target = "_blank";
             Elem_HTTP_Img = document.createElement("img");
             Elem_HTTP_Img.src = "img/HTTP_logo.png";
             Elem_HTTP_Img.id = "port_logo";
-            //Elem_HTTP_Img.style = "width:80px";
-            document.getElementById(child_input.id).appendChild(Elem_HTTP_Img);
+                        Elem_HTTP_Link.appendChild(Elem_HTTP_Img);
+            document.getElementById(child_input.id).appendChild(Elem_HTTP_Link);
+
         }
     } //end for loop
 } //end function Display
