@@ -1,5 +1,4 @@
-function Start()
-{
+function Start() {
     Read_XML();
     setInterval(Read_XML, 60 * 1000);
 }
@@ -25,7 +24,7 @@ function Scan(xml) {
     var xmlDoc = xml.responseXML;
 
     //write down the scan time
-    Scan_Time = xmlDoc.getElementsByTagName("nmaprun")[0].getAttribute("startstr");
+    var Scan_Time = xmlDoc.getElementsByTagName("nmaprun")[0].getAttribute("startstr");
     var Num_Hosts = xmlDoc.getElementsByTagName("host").length;
     var Computers_New = [];
     //looping throught the xml entries
@@ -55,35 +54,32 @@ function Scan(xml) {
             "IP": IP_Address,
             "SSH": SSH_State,
             "HTTP": HTTP_State,
-            "Deactivated" : false
+            "Deactivated": false
         };
-        IPs.push(IP_Address)
+        IPs.push(IP_Address);
         Computers_New.push(Computer);
     } //end for loop
 
     //check for lost/deactivated computers (they should be displayed grayed out)
     var missed = false;
     for (var old_c in Computers) {
-            var Computer_Counter = 0;
-        for(var new_c in Computers_New)
-        {
+        var Computer_Counter = 0;
+        for (var new_c in Computers_New) {
 
-            if (Computers_New[new_c].IP == Computers[old_c].IP)
-            {
+            if (Computers_New[new_c].IP == Computers[old_c].IP) {
                 //we found the same IP so we can move on
                 missed = false;
                 break;
             }
             Computer_Counter++;
-            if (Computer_Counter == Computers_New.length)
-            {
+            if (Computer_Counter == Computers_New.length) {
                 //The computer is not here - we looking in the complete array
                 var Missing_Computer = {
                     "Hostname": Computers[old_c].Hostname,
                     "IP": Computers[old_c].IP,
                     "SSH": Computers[old_c].SHH,
                     "HTTP": Computers[old_c].HTTP,
-                    "Deactivated" : true
+                    "Deactivated": true
                 };
                 missed = true;
                 Computers_New.push(Missing_Computer);
@@ -98,8 +94,7 @@ function Scan(xml) {
     Display();
 }
 
-function Remove_Old_Elements()
-{
+function Remove_Old_Elements() {
     //remove the old headline
     var r1 = document.getElementById("Scan_Time_ID");
     if (r1) {
@@ -110,25 +105,25 @@ function Remove_Old_Elements()
     if (r2) {
         r2.parentNode.removeChild(r2);
     }
-/*
-    //remove the old entries
-    var r3 = document.getElementById("parent");
-    if (r3)
-    {
-        while (r3.hasChildNodes())
+    /*
+        //remove the old entries
+        var r3 = document.getElementById("parent");
+        if (r3)
         {
-            r3.removeChild(r2.lastChild);
-        }
-    }*/
+            while (r3.hasChildNodes())
+            {
+                r3.removeChild(r2.lastChild);
+            }
+        }*/
 }
 
 function Display() {
     //remove all older elements
     //remove the old headline first
-    Remove_Old_Elements()
+    Remove_Old_Elements();
 
     var Scan_Time_Headline = document.createElement("h1");
-    Scan_Time_Headline.id = "Scan_Time_ID"
+    Scan_Time_Headline.id = "Scan_Time_ID";
     Scan_Time_Headline.innerHTML = "Scan time: " + Scan_Time;
     document.body.appendChild(Scan_Time_Headline);
     var parent_div = document.createElement("div")
@@ -149,12 +144,12 @@ function Display() {
         document.getElementById(child_input.id).appendChild(Elem_IP);
         document.getElementById(child_input.id).appendChild(Elem_Name);
 
-        if (Computers[i].Deactivated == true){
+        if (Computers[i].Deactivated == true) {
             child_input.style.backgroundColor = "DarkGrey";
         }
 
         if (Computers[i].SSH == "open") {
-            Elem_SSH_Img = document.createElement("img");
+            var Elem_SSH_Img = document.createElement("img");
             Elem_SSH_Img.src = "img/SSH_logo.png";
             Elem_SSH_Img.id = "port_logo";
             document.getElementById(child_input.id).appendChild(Elem_SSH_Img);
@@ -167,9 +162,8 @@ function Display() {
             Elem_HTTP_Img = document.createElement("img");
             Elem_HTTP_Img.src = "img/HTTP_logo.png";
             Elem_HTTP_Img.id = "port_logo";
-                        Elem_HTTP_Link.appendChild(Elem_HTTP_Img);
+            Elem_HTTP_Link.appendChild(Elem_HTTP_Img);
             document.getElementById(child_input.id).appendChild(Elem_HTTP_Link);
-
         }
     } //end for loop
 } //end function Display
