@@ -194,7 +194,7 @@ function Display() {
             Service_Flag = true;
         }
 
-        if (Service_Flag == false)
+        if (Service_Flag == false && Computers[i].Deactivated == false)
         {
             Service_Text.innerHTML = "No services available";
         }
