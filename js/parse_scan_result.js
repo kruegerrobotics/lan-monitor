@@ -127,32 +127,59 @@ function Display() {
     Scan_Time_Headline.innerHTML = "Scan time: " + Scan_Time;
     document.body.appendChild(Scan_Time_Headline);
     var parent_div = document.createElement("div")
-    parent_div.id = "parent"
+    parent_div.id = "parent";
     document.body.appendChild(parent_div);
     var Num_Hosts = Computers.length;
 
     for (var i in Computers) {
-        var child_input = document.createElement("div");
-        child_input.className = "Computer_Entry";
-        child_input.id = "child" + i.toString();
+        var Computer_Element = document.createElement("div");
+        Computer_Element.className = "Computer_Entry";
+        Computer_Element.id = "child" + i.toString();
+
+        //the box (actually 2 combined boxes for display)
+        var Computer_Element_Info = document.createElement("div");
+        Computer_Element_Info.className = "Information_Bar";
+        var Computer_Element_Payload = document.createElement("div");
+        Computer_Element_Payload.className = "Payload_Bar";
+
+        //the IP address
         var Elem_IP = document.createElement("p");
         Elem_IP.innerHTML = "IP: " + Computers[i].IP;
+        Elem_IP.className = "IP_Text";
+
+        //the hostname
         var Elem_Name = document.createElement("p");
         Elem_Name.innerHTML = "Name: " + Computers[i].Hostname;
+        Elem_Name.className = "Computer_Text";
 
-        document.getElementById(parent_div.id).appendChild(child_input);
-        document.getElementById(child_input.id).appendChild(Elem_IP);
-        document.getElementById(child_input.id).appendChild(Elem_Name);
+        document.getElementById(parent_div.id).appendChild(Computer_Element);
+        Computer_Element.appendChild(Computer_Element_Info);
+        Computer_Element.appendChild(Computer_Element_Payload);
+        Computer_Element_Info.appendChild(Elem_Name);
+        Computer_Element_Info.appendChild(Elem_IP);
+
+        var Service_Text =  document.createElement("p");
+        Service_Text.className = "Service_Text";
 
         if (Computers[i].Deactivated == true) {
-            child_input.style.backgroundColor = "DarkGrey";
+            Service_Text.innerHTML = "System offline";
+            Service_Text.style.fontSize = 32;
+            Computer_Element_Info.style.backgroundColor = "#FE553E";
+        }
+        else
+        {
+            Service_Text.innerHTML = "Available services:";
         }
 
+        Computer_Element_Payload.appendChild(Service_Text);
+
+        var Service_Flag = false;
         if (Computers[i].SSH == "open") {
             var Elem_SSH_Img = document.createElement("img");
             Elem_SSH_Img.src = "img/SSH_logo.png";
             Elem_SSH_Img.id = "port_logo";
-            document.getElementById(child_input.id).appendChild(Elem_SSH_Img);
+            Computer_Element_Payload.appendChild(Elem_SSH_Img);
+            Service_Flag = true;
         }
 
         if (Computers[i].HTTP == "open") {
@@ -163,7 +190,13 @@ function Display() {
             Elem_HTTP_Img.src = "img/HTTP_logo.png";
             Elem_HTTP_Img.id = "port_logo";
             Elem_HTTP_Link.appendChild(Elem_HTTP_Img);
-            document.getElementById(child_input.id).appendChild(Elem_HTTP_Link);
+            Computer_Element_Payload.appendChild(Elem_HTTP_Link);
+            Service_Flag = true;
+        }
+
+        if (Service_Flag == false)
+        {
+            Service_Text.innerHTML = "No services available";
         }
     } //end for loop
 } //end function Display

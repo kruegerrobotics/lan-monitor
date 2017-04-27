@@ -1,31 +1,78 @@
-body {
+/*body {
+    background-color: grey;
     margin: 0;
     padding: 0;
 }
+*/
+body{
+   background:url(
+
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQYV2P0j0z+z4AGGPEKblw+l8E/MhmsB79KZGMBADUNOAGWYcMAAAAASUVORK5CYII=
+    ) repeat;
+}
 
 #port_logo {
-    width: 80px;
-    margin-left: 10px;
+    width: 90px;
+    margin-top: 10px;
+    margin-left: 40px;
 }
 
 .Computer_Entry {
-    background-color: green;
     float: left;
-    width: 250px;
-    height: 120px;
-    padding: 10px;
-    margin: 10px;
-    border-color: black;
-    border-style: solid;
+    margin: 15px;
 }
+
+.Information_Bar{
+  background-color: black;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  /*float: left;*/
+  width: 300px;
+  height: 20px;
+  padding: 10px;
+}
+
+.Payload_Bar{
+  background-color: white;
+  width: 300px;
+  height: 80px;
+  padding: 10px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.IP_Text{
+  font-family : sans-serif;
+  font-size : 14px;
+  color : #8CC63F;
+	color : rgb(140, 198, 63);
+  margin : 5px;
+  margin-left: 10px;
+  float : left;
+}
+
+.Computer_Text{
+  /*float : left;*/
+  font-family : sans-serif;
+	font-size : 14px;
+	color : #8CC63F;
+	color : rgb(140, 198, 63);
+  margin : 5px;
+  float : left;
+}
+
+.Service_Text {
+  font-family : sans-serif;
+  font-size : 14px;
+  color : black;
+  margin-top : 0px;
+  margin-bottom : 0px;
+  margin-left: : 10px;
+}
+
+
 
 h1{
   margin-left: 10px;
   font-family: sans-serif;
-}
-
-p {
-    margin: 10px;
-    font-size: 20px;
-    font-family: sans-serif;
 }
