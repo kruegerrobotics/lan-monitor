@@ -12,7 +12,7 @@ It is for laboratory or home type networks to get a quick impression of the comp
 - Shows the hostname and IP address
 - Shows if the computer is running a webserver with clickable link
 - Shows is the computer is accessible via SSH  
-- Shows if a computer has gone offline - greyed out display
+- Shows if a computer has gone offline
 
 # How it works
 It is based on a periodically executed nmap scan. The result of this scan, a xml file, is parsed by the JavaScript and represented as html page with boxes for each computer.
