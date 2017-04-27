@@ -16,7 +16,6 @@ function Read_XML() {
 
 //global variable array
 var Computers = [];
-var IPs = [];
 var Scan_Time = "today";
 
 function Scan(xml) {
@@ -24,7 +23,7 @@ function Scan(xml) {
     var xmlDoc = xml.responseXML;
 
     //write down the scan time
-    var Scan_Time = xmlDoc.getElementsByTagName("nmaprun")[0].getAttribute("startstr");
+    Scan_Time = xmlDoc.getElementsByTagName("nmaprun")[0].getAttribute("startstr");
     var Num_Hosts = xmlDoc.getElementsByTagName("host").length;
     var Computers_New = [];
     //looping throught the xml entries
@@ -56,7 +55,6 @@ function Scan(xml) {
             "HTTP": HTTP_State,
             "Deactivated": false
         };
-        IPs.push(IP_Address);
         Computers_New.push(Computer);
     } //end for loop
 
@@ -163,7 +161,8 @@ function Display() {
 
         if (Computers[i].Deactivated == true) {
             Service_Text.innerHTML = "System offline";
-            Service_Text.style.fontSize = 32;
+            Service_Text.style.fontSize = 24;
+            Service_Text.style.color = "DarkGrey";
             Computer_Element_Info.style.backgroundColor = "#FE553E";
         }
         else
