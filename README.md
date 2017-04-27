@@ -2,7 +2,7 @@
 # What it does
 This software builds a dynamic graphical website showing the computers with their hostnames and IP addresses in the local network.
 
-It is for laboratory or home type networks to get a quick impression of the computers online without requiring additional soft or hardware required.
+It is for laboratory or home type networks to get a quick impression of the computers online without requiring additional soft or hardware.
 
 ![alt text](/doc/website_impression.png "Impression of the scan result as website")
 
@@ -15,7 +15,7 @@ It is for laboratory or home type networks to get a quick impression of the comp
 - Shows if a computer has gone offline
 
 # How it works
-It is based on a periodically executed nmap scan. The result of this scan, a xml file, is parsed by the JavaScript and represented as html page with boxes for each computer.
+It is based on a periodically executed nmap scan. The result of this scan, a xml file, is parsed by the JavaScript and represented as html page with boxes presenting information for each computer.
 
 # Prerequisites
 ## Webserver
