@@ -54,14 +54,15 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQYV2
 .Computer_Text{
   /*float : left;*/
   font-family : sans-serif;
+  white-space: nowrap;
 	font-size : 14px;
+  overflow : hidden;
+  text-overflow : ellipsis;
 	color : #8CC63F;
 	color : rgb(140, 198, 63);
   margin : 5px;
-  width: : 130px;
+  width : 150px;
   float : left;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .Service_Text {

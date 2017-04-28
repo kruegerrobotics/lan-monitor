@@ -164,6 +164,10 @@ function Display() {
             Service_Text.style.fontSize = 24;
             Service_Text.style.color = "DarkGrey";
             Computer_Element_Info.style.backgroundColor = "#FE553E";
+
+            //ensure no services are displayed
+            Computers[i].SSH == "closed";
+            Computers[i].HTTP == "closed"
         }
         else
         {
