@@ -58,7 +58,10 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQYV2
 	color : #8CC63F;
 	color : rgb(140, 198, 63);
   margin : 5px;
+  width: : 130px;
   float : left;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Service_Text {
