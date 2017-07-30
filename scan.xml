@@ -44,7 +44,7 @@
         <address addr="192.168.0.200" addrtype="ipv4"/>
         <address addr="80:86:F2:92:B6:34" addrtype="mac" vendor="Intel Corporate"/>
         <hostnames>
-            <hostname name="LPT-TEC-2485.esa-ad.esa.int" type="PTR"/>
+            <hostname name="LPT-TEC-2485-123456789Abcdedfg.esa-ad.esa.int" type="PTR"/>
         </hostnames>
         <ports>
             <port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
@@ -63,7 +63,7 @@
         </ports>
         <times srtt="23" rttvar="3754" to="100000"/>
     </host>
-    
+
     <runstats><finished time="1491595944" timestr="Fri Apr  7 22:12:24 2017" elapsed="7.14" summary="Nmap done at Fri Apr  7 22:12:24 2017; 256 IP addresses (5 hosts up) scanned in 7.14 seconds" exit="success"/><hosts up="5" down="251" total="256"/>
     </runstats>
 </nmaprun>

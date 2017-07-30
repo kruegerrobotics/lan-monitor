@@ -1,4 +1,9 @@
+//global variable array
+var Computers = [];
+var Scan_Time = "today";
+
 function Start() {
+    Parse_Defaulf_List();
     Read_XML();
     setInterval(Read_XML, 60 * 1000);
 }
@@ -14,14 +19,72 @@ function Read_XML() {
     xhttp.send();
 }
 
-//global variable array
-var Computers = [];
-var Scan_Time = "today";
+function Parse_Defaulf_List() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            Scan_Default_List(this);
+        }
+    };
+    xhttp.open("GET", "default.xml", true);
+    xhttp.send();
+}
+
+//Scans the default list if available and (pre) populates the Computer list
+function Scan_Default_List(xml) {
+    var xmlDoc = xml.responseXML;
+    
+    var Default_Computers = xmlDoc.getElementsByTagName("Computer");
+    var Num_Default_Computers = Default_Computers.length; 
+     
+    for (var i = 0; i < Num_Default_Computers; i++){
+        
+        var Computer = {
+            "Hostname": Default_Computers[i].getAttribute("name"),
+            "IP": Default_Computers[i].getAttribute("ip"),
+            "SSH": Default_Computers[i].getAttribute("ssh"),
+            "HTTP": Default_Computers[i].getAttribute("http"),
+            "Deactivated": false
+        };
+        Computers.push(Computer);
+    }
+  
+}
+
+//save the current computer list to xml file which is offered to the user
+//Computers which are currently offline will be not part of this list
+function Save_Default_List (){
+    var xmlDoc = document.implementation.createDocument("", "", null);
+    var root =xmlDoc.createElement("Default_Computers");
+    var Is_List_Populated = false;
+
+    for (var i in Computers) {
+        if (Computers[i].Deactivated == false)
+        {
+            var Entry = xmlDoc.createElement("Computer");
+            Entry.setAttribute("ip", Computers[i].IP); 
+            Entry.setAttribute("name", Computers[i].Hostname); 
+            Entry.setAttribute("ssh", Computers[i].SSH); 
+            Entry.setAttribute("http", Computers[i].HTTP); 
+            root.appendChild(Entry);
+            Is_List_Populated = true;
+        }
+    }
+    if (Is_List_Populated == true) {
+        xmlDoc.appendChild(root);    
+    
+        File_Content = (new XMLSerializer()).serializeToString(xmlDoc);
+        var XML_for_Download = document.createElement('a');
+        XML_for_Download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(File_Content));
+        XML_for_Download.setAttribute('download', "default.xml");
+        XML_for_Download.click();
+    }
+}
 
 function Scan(xml) {
     //the general xml handler
     var xmlDoc = xml.responseXML;
-
+    
     //write down the scan time
     Scan_Time = xmlDoc.getElementsByTagName("nmaprun")[0].getAttribute("startstr");
     var Num_Hosts = xmlDoc.getElementsByTagName("host").length;
