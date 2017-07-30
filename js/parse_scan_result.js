@@ -10,7 +10,7 @@ function Start() {
 
 function Read_XML() {
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             Scan(this);
         }
@@ -21,7 +21,7 @@ function Read_XML() {
 
 function Parse_Defaulf_List() {
     var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
+    xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             Scan_Default_List(this);
         }
@@ -33,12 +33,12 @@ function Parse_Defaulf_List() {
 //Scans the default list if available and (pre) populates the Computer list
 function Scan_Default_List(xml) {
     var xmlDoc = xml.responseXML;
-    
+
     var Default_Computers = xmlDoc.getElementsByTagName("Computer");
-    var Num_Default_Computers = Default_Computers.length; 
-     
-    for (var i = 0; i < Num_Default_Computers; i++){
-        
+    var Num_Default_Computers = Default_Computers.length;
+
+    for (var i = 0; i < Num_Default_Computers; i++) {
+
         var Computer = {
             "Hostname": Default_Computers[i].getAttribute("name"),
             "IP": Default_Computers[i].getAttribute("ip"),
@@ -48,31 +48,30 @@ function Scan_Default_List(xml) {
         };
         Computers.push(Computer);
     }
-  
+
 }
 
 //save the current computer list to xml file which is offered to the user
 //Computers which are currently offline will be not part of this list
-function Save_Default_List (){
+function Save_Default_List() {
     var xmlDoc = document.implementation.createDocument("", "", null);
-    var root =xmlDoc.createElement("Default_Computers");
+    var root = xmlDoc.createElement("Default_Computers");
     var Is_List_Populated = false;
 
     for (var i in Computers) {
-        if (Computers[i].Deactivated == false)
-        {
+        if (Computers[i].Deactivated == false) {
             var Entry = xmlDoc.createElement("Computer");
-            Entry.setAttribute("ip", Computers[i].IP); 
-            Entry.setAttribute("name", Computers[i].Hostname); 
-            Entry.setAttribute("ssh", Computers[i].SSH); 
-            Entry.setAttribute("http", Computers[i].HTTP); 
+            Entry.setAttribute("ip", Computers[i].IP);
+            Entry.setAttribute("name", Computers[i].Hostname);
+            Entry.setAttribute("ssh", Computers[i].SSH);
+            Entry.setAttribute("http", Computers[i].HTTP);
             root.appendChild(Entry);
             Is_List_Populated = true;
         }
     }
     if (Is_List_Populated == true) {
-        xmlDoc.appendChild(root);    
-    
+        xmlDoc.appendChild(root);
+
         File_Content = (new XMLSerializer()).serializeToString(xmlDoc);
         var XML_for_Download = document.createElement('a');
         XML_for_Download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(File_Content));
@@ -84,7 +83,7 @@ function Save_Default_List (){
 function Scan(xml) {
     //the general xml handler
     var xmlDoc = xml.responseXML;
-    
+
     //write down the scan time
     Scan_Time = xmlDoc.getElementsByTagName("nmaprun")[0].getAttribute("startstr");
     var Num_Hosts = xmlDoc.getElementsByTagName("host").length;
@@ -148,7 +147,7 @@ function Scan(xml) {
         }
 
     }
-    Computers_New.sort(function(a, b) {
+    Computers_New.sort(function (a, b) {
         return dot2num(a.IP) - dot2num(b.IP);
     });
     Computers = Computers_New;
@@ -219,7 +218,7 @@ function Display() {
         Computer_Element_Info.appendChild(Elem_Name);
         Computer_Element_Info.appendChild(Elem_IP);
 
-        var Service_Text =  document.createElement("p");
+        var Service_Text = document.createElement("p");
         Service_Text.className = "Service_Text";
 
         if (Computers[i].Deactivated == true) {
@@ -232,8 +231,7 @@ function Display() {
             Computers[i].SSH == "closed";
             Computers[i].HTTP == "closed"
         }
-        else
-        {
+        else {
             Service_Text.innerHTML = "Available services:";
         }
 
@@ -260,8 +258,7 @@ function Display() {
             Service_Flag = true;
         }
 
-        if (Service_Flag == false && Computers[i].Deactivated == false)
-        {
+        if (Service_Flag == false && Computers[i].Deactivated == false) {
             Service_Text.innerHTML = "No services available";
         }
     } //end for loop
