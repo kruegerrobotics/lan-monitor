@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#this is an automation for this individual project
-PACKAGE_DIR=debpackage
+PACKAGE_DIR=pkg-build
+
 VERSION=$(grep -o -P "\d+[.]\d+[.]\d+" main.go)
 
 EXECUTABLE=test_go

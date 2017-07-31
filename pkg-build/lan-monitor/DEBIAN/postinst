@@ -1,2 +1,5 @@
 #!/bin/sh
+#insert a crontab
+
+#restart the webserver
 systemctl restart nginx
