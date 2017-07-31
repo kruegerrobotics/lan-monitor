@@ -1,0 +1,8 @@
+Package: lan-monitor
+Architecture: all
+Maintainer: thomas.krueger.home@gmail.com
+Priority: optional
+Version: 1.2.0
+Depends: nmap, ngingx
+Description: Automatically generated website to list computers
+    The computer list is based on a nmap scan of the assigned network with ports listed
