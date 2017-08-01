@@ -1,8 +1,10 @@
 Package: lan-monitor
 Architecture: all
-Maintainer: thomas.krueger.home@gmail.com
+Maintainer: Thomas Krueger
 Priority: optional
+Essential: no
+Section: custom
 Version: 1.2.0
-Depends: nmap, ngingx
+Depends: nmap, nginx
 Description: Automatically generated website to list computers
     The computer list is based on a nmap scan of the assigned network with ports listed
