@@ -1,2 +1,3 @@
-#!/bin/bash
+#!/bin/sh
 #remove crontab
+crontab -l | grep -v lan-monitor-scan.sh | crontab -

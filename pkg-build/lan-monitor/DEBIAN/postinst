@@ -1,5 +1,6 @@
 #!/bin/sh
 #insert a crontab
+crontab -l | { cat; echo "*/2 * * * * /usr/bin/lan-monitor-scan.sh"; } | crontab -
 
 #restart the webserver
 systemctl restart nginx
