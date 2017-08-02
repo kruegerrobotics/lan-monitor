@@ -14,9 +14,8 @@
 # Default server configuration
 #
 server {
-	listen     localhost:80;
-	#listen 80;
-	#listen [::]:80;
+	listen 80;
+	listen [::]:80;
 
 	# SSL configuration
 	#
