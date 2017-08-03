@@ -1,6 +1,6 @@
 # lan-monitor
 
-## What it does.
+## What it does
 
 This software builds a dynamic graphical website showing the computers with their hostnames and IP addresses in the local network.
 
@@ -60,7 +60,7 @@ apt-get install -f
 
 ### Test the install
 
-If you enter not the ip address or the computer name in the browser it should display the computers in the lan e.g. http://192.168.1.2 or http://myserver
+If you enter not the ip address or the computer name in the browser it should display the computers in the lan e.g. http://192.168.1.2 or http://myserver. It can take 3 minutes until the first nmap scan is completed. There should be the file scan.xml in the */var/www/lan-monitor* folder.
 
 ### Manual installation
 

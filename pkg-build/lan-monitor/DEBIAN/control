@@ -4,7 +4,10 @@ Maintainer: Thomas Krueger
 Priority: optional
 Essential: no
 Section: custom
-Version: 1.2.0
+Version: 1.4.0
 Depends: nmap, nginx
+Provides: lan-monitor
+Conflicts: lan-monitor
+Replaces: lan-monitor
 Description: Automatically generated website to list computers
     The computer list is based on a nmap scan of the assigned network with ports listed
