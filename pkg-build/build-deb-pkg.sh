@@ -24,7 +24,7 @@ cp ../config/nginx-site $PACKAGE_NAME/etc/nginx/sites-available/$PACKAGE_NAME
 
 #This is for the scan binary/script
 mkdir -p $PACKAGE_NAME/usr/bin
-cp ../bin/lan_monitor_scan.sh $PACKAGE_NAME/usr/bin/
+cp ../bin/lan-monitor-scan.sh $PACKAGE_NAME/usr/bin/
 
 
 #required for debians sake
