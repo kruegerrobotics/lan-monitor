@@ -24,7 +24,7 @@ It is based on a periodically executed nmap scan. The result of this scan, a xml
 
 ### Automatic installation by using the provided Debian package
 
-If running on Debian or a deb base package manage you can use the debian package provided here.
+If running on Debian or a deb base package manage you can use the debian package provided [here](https://github.com/KruDex/lan-monitor/releases/download/v1.4.0/lan-monitor.deb).
 
 #### WARNINGS for debian package
 
