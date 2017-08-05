@@ -9,5 +9,5 @@ Depends: nmap, nginx
 Provides: lan-monitor
 Conflicts: lan-monitor
 Replaces: lan-monitor
-Description: Automatically generated website to list computers
-    The computer list is based on a nmap scan of the assigned network with ports listed
+Description: Automatically generated website to list computers and their open ports in a network
+    The computer list is based on a periodic nmap scan of the network.
