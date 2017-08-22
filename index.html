@@ -1,12 +1,26 @@
 <html>
+
 <head>
     <title>List of all computers in the LAN</title>
     <!--meta http-equiv="refresh" content="60"></meta-->
-     <link rel="stylesheet" href="css/styles.css"></link>
+    <link rel="stylesheet" href="css/styles.css"></link>
     <script src="js/parse_scan_result.js" type="text/javascript"></script>
 </head>
 
 <body onload="Start()">
-    <button type="button" onclick="Save_Default_List()">Save defaults</button>
+    <div>
+        <input type="checkbox" id="id-name--1" name="set-name" class="switch-input" onchange="Toggle_Full_Names(this)">
+        <label for="id-name--1" class="switch-label">Full names <span class="toggle--on">enabled</span><span class="toggle--off">disabled</span></label>
+        
+    </div>
+    
+    <div>
+        <h1 id="Scan_Time_ID">Scan time: </h1>
+    </div>
+    <!-- <div>
+        <button class="Check_Box_Btn" onclick="Toggle_Full_Names(this)">Full Names</button>
+        <button type="button" onclick="Save_Default_List()">Save defaults</button>
+    </div> -->
 </body>
+
 </html>

@@ -1,12 +1,25 @@
-//global variable array
+//globald
+//computer variable array
 var Computers = [];
 var Scan_Time = "today";
+var Name_Filter_Enabled = true;
 
 function Start() {
-    Parse_Defaulf_List();
+    Parse_Default_List();
     Read_XML();
     setInterval(Read_XML, 60 * 1000);
 }
+
+function Toggle_Full_Names(element) {
+    //if its checked no filter is applied
+    if (element.checked) {
+        Name_Filter_Enabled = false;
+    } else {
+        Name_Filter_Enabled = true;
+    }
+    Read_XML();
+}
+
 
 function Read_XML() {
     var xhttp = new XMLHttpRequest();
@@ -19,7 +32,7 @@ function Read_XML() {
     xhttp.send();
 }
 
-function Parse_Defaulf_List() {
+function Parse_Default_List() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
@@ -48,7 +61,6 @@ function Scan_Default_List(xml) {
         };
         Computers.push(Computer);
     }
-
 }
 
 //save the current computer list to xml file which is offered to the user
@@ -80,6 +92,16 @@ function Save_Default_List() {
     }
 }
 
+//Filters the hostname or shows the full Domain name if not filtered
+function Filter_Hostname(Host_Name, Apply_Filter = true) {
+    if (Apply_Filter == false) {
+        return Host_Name;
+    } else {
+        var s = Host_Name.split(".");
+        return s[0];
+    }
+}
+
 function Scan(xml) {
     //the general xml handler
     var xmlDoc = xml.responseXML;
@@ -95,8 +117,7 @@ function Scan(xml) {
         var Hostname_Element = Host_Element.getElementsByTagName("hostnames")[0].getElementsByTagName("hostname")[0];
         if (Hostname_Element) {
             var Hostname = Hostname_Element.getAttribute("name");
-            var s = Hostname.split(".");
-            Hostname = s[0];
+            var Hostname = Filter_Hostname(Hostname, Name_Filter_Enabled);
         } else {
             var Hostname = "Unknown";
         }
@@ -156,10 +177,10 @@ function Scan(xml) {
 
 function Remove_Old_Elements() {
     //remove the old headline
-    var r1 = document.getElementById("Scan_Time_ID");
+    /*var r1 = document.getElementById("Scan_Time_ID");
     if (r1) {
         r1.parentNode.removeChild(r1);
-    }
+    }*/
 
     var r2 = document.getElementById("parent");
     if (r2) {
@@ -182,8 +203,9 @@ function Display() {
     //remove the old headline first
     Remove_Old_Elements();
 
-    var Scan_Time_Headline = document.createElement("h1");
-    Scan_Time_Headline.id = "Scan_Time_ID";
+    var Scan_Time_Headline = document.getElementById("Scan_Time_ID");
+    //document.createElement("h1");
+   // Scan_Time_Headline.id = "Scan_Time_ID";
     Scan_Time_Headline.innerHTML = "Scan time: " + Scan_Time;
     document.body.appendChild(Scan_Time_Headline);
     var parent_div = document.createElement("div")
@@ -215,8 +237,9 @@ function Display() {
         document.getElementById(parent_div.id).appendChild(Computer_Element);
         Computer_Element.appendChild(Computer_Element_Info);
         Computer_Element.appendChild(Computer_Element_Payload);
-        Computer_Element_Info.appendChild(Elem_Name);
         Computer_Element_Info.appendChild(Elem_IP);
+        Computer_Element_Info.appendChild(Elem_Name);
+        
 
         var Service_Text = document.createElement("p");
         Service_Text.className = "Service_Text";
