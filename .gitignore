@@ -2,3 +2,6 @@
 node_modules/
 .vscode/launch.json
 .temp_scan.xml
+lan-monitor-server/debug
+.vscode/settings.json
+temp_scan.xml
