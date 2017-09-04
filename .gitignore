@@ -1,3 +1,4 @@
 .tern-project
 node_modules/
 .vscode/launch.json
+.temp_scan.xml

@@ -1,7 +1,1 @@
 #!/bin/sh
-#remove crontab
-crontab -l | grep -v lan-monitor-scan.sh | crontab -
-
-#remove the nginx symbolic link for the website
-rm -f /etc/nginx/sites-enabled/lan-monitor 
-rm -f /etc/nginx/sites-available/lan-monitor 

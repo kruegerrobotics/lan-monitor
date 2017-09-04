@@ -5,7 +5,7 @@ Priority: optional
 Essential: no
 Section: custom
 Version: 1.4.1
-Depends: nmap, nginx
+Depends: nmap
 Provides: lan-monitor
 Conflicts: lan-monitor
 Replaces: lan-monitor
