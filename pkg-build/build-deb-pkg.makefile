@@ -9,9 +9,6 @@ all : build_package
 	
 compose_pkg_files : copy_www_files 
 		
-root_check:
-	./runasroot.sh
-
 #moving files to the destination dirs for buidling the package
 copy_www_files : 
 	mkdir -p ./$(HTML_DESTINATION_DIR)
@@ -88,7 +85,6 @@ clean_package_builds :
 
 clean_package_files :
 	rm -rf $(PACKAGE_DATA_DIR)
-
 
 clean_packages : 
 	rm -rf *.deb
