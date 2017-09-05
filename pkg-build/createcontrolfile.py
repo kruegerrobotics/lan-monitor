@@ -3,6 +3,7 @@
 
 import string
 import argparse
+import sys
 
 def main():
     """simple main"""
@@ -11,15 +12,21 @@ def main():
     parser.add_argument("-t", "--template", help="the template control file")
     parser.add_argument("-d", "--destination", help="the destination file")
     parser.add_argument("-a", "--architecture", help="debian style architecture of the system e.g. amd64")
+    parser.add_argument("-v", "--version", help="returns the version of the LAN monitor", action="store_true")
     args = parser.parse_args()
 
     #read version information
     version = "1.5.1"
+    if args.version:
+        print(version)
+        quit()
+
     #read available architectures
     if args.architecture == None:
         print("ERROR: No target architecture specified")
         parser.print_help()
-        exit(1)
+        sys.exit(1)
+    
     #read the template
     with open(args.template, "r") as file_in:
         src = string.Template(file_in.read())

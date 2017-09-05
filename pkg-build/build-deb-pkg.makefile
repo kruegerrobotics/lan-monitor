@@ -3,8 +3,10 @@ INSTALL_DIRECTORY=/opt/$PACKAGE_NAME
 PACKAGE_DATA_DIR=$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)
 HTML_DESTINATION_DIR=$(PACKAGE_DATA_DIR)/www
 
-all : build_package
+VERSION=$(shell ./createcontrolfile.py -v)
 
+all : build_package
+	
 compose_pkg_files : copy_www_files 
 		
 root_check:
@@ -30,8 +32,8 @@ build_x86_linux_pkg : copy_www_files build_x86_linux_exec
 	./createcontrolfile.py -a i386 -t control.tmpl -d $@/$(PACKAGE_NAME)/DEBIAN/control
 	cp build_x86_linux_exec/lan-monitor-server $@/$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)/bin/
 	
-	#build the $@
-	fakeroot dpkg --build $@/$(PACKAGE_NAME)
+	#build the $@ with version $(VERSION)
+	fakeroot dpkg --build $@/$(PACKAGE_NAME) $(PACKAGE_NAME)_$(VERSION)_i386.deb
 	
 
 build_x86_linux_exec : 
