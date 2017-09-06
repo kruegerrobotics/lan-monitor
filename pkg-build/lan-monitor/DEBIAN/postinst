@@ -1,1 +1,6 @@
 #!/bin/sh
+#enable the service
+systemctl enable lan-monitor-server.service
+
+#start the service
+systemctl start lan-monitor-server.service

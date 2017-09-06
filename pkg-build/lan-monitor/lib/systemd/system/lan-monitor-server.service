@@ -1,0 +1,12 @@
+[Unit]
+Description=Lan Monitor Service
+After=network.target
+ 
+[Service]
+ExecStart=/opt/lan-monitor/bin/lan-monitor-service
+StandardOutput=syslog
+StandardError=syslog
+ 
+[Install]
+WantedBy=multi-user.target
+Alias=lan-monitor-server.service

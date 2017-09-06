@@ -17,9 +17,6 @@ copy_www_files :
 	cp -r ../img ./$(HTML_DESTINATION_DIR)/
 	cp -r ../js ./$(HTML_DESTINATION_DIR)/
 
-#Building of the webserver binaries
-build_all_binaries : build_i386_linux_binary build_x86_64_linux_exec build_arm_linux_exec	
-
 build_all_packages : build_i386_linux_pkg build_amd64_linux_pkg build_arm_linux_pkg
 
 build_i386_linux_pkg : copy_www_files build_i386_linux_binary
@@ -51,7 +48,9 @@ build_arm_linux_pkg : copy_www_files build_arm_linux_binary
 	
 	#build the $@ with version $(VERSION)
 	fakeroot dpkg --build $@/$(PACKAGE_NAME) $(PACKAGE_NAME)_$(VERSION)_arm.deb
-	
+
+#Building of the webserver binaries
+build_all_binaries : build_i386_linux_binary build_x86_64_linux_exec build_arm_linux_exec	
 
 build_i386_linux_binary : 
 	mkdir -p $@; 
