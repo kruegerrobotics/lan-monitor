@@ -61,19 +61,19 @@ build_all_binaries : build_i386_linux_binary build_x86_64_linux_exec build_arm_l
 build_i386_linux_binary : 
 	mkdir -p $@; 
 	cd ../lan-monitor-server; \
-	GOOS=linux GOARCH=386 go build 
+	GOOS=linux GOARCH=386 go build -ldflags="-X main.version=$(VERSION)"
 	mv ../lan-monitor-server/lan-monitor-server $@/
 
 build_amd64_linux_binary : 
 	mkdir -p $@; 
 	cd ../lan-monitor-server; \
-	GOOS=linux GOARCH=amd64 go build 
+	GOOS=linux GOARCH=amd64 go build -ldflags="-X main.version=$(VERSION)"
 	mv ../lan-monitor-server/lan-monitor-server $@/
 
 build_arm_linux_binary : 
 	mkdir -p $@; 
 	cd ../lan-monitor-server; \
-	GOOS=linux GOARCH=arm go build 
+	GOOS=linux GOARCH=arm go build -ldflags="-X main.version=$(VERSION)"
 	mv ../lan-monitor-server/lan-monitor-server $@/
 
 test_amd64_vbox : build_amd64_linux_pkg
