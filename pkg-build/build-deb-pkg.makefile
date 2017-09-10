@@ -77,13 +77,12 @@ build_arm_linux_binary :
 	mv ../lan-monitor-server/lan-monitor-server $@/
 
 test_amd64_vbox : build_amd64_linux_pkg
-	VBoxManage controlvm $(VM_NAME_AMD64) poweroff
+	#VBoxManage showvminfo $(VM_NAME_AMD64) | grep -c "running (since" && VBoxManage controlvm $(VM_NAME_AMD64) poweroff; \
 
 	#give the vm mangager some time
 	sleep 1
 
 	#restore the old snapshot
-	#VBoxManage snapshot $VM_NAME restore $SNAPSHOT_NAME
 	VBoxManage snapshot $(VM_NAME_AMD64) restore $(SNAPSHOT_NAME)
 
 	#power on the vm
