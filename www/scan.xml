@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.40 scan initiated Sun Sep  3 16:33:28 2017 as: nmap -p 22,80 -oX temp_scan.xml 192.168.1.1/24 -->
+<nmaprun scanner="nmap" args="nmap -p 22,80 -oX temp_scan.xml 192.168.1.1/24" start="1504449208" startstr="Sun Sep  3 16:33:28 2017" version="7.40" xmloutputversion="1.04">
+<scaninfo type="connect" protocol="tcp" numservices="2" services="22,80"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1504449208" endtime="1504449213"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.1.1" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+</ports>
+<times srtt="3365" rttvar="3426" to="100000"/>
+</host>
+<host starttime="1504449208" endtime="1504449211"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.1.65" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+</ports>
+<times srtt="14318" rttvar="17895" to="100000"/>
+</host>
+<runstats><finished time="1504449213" timestr="Sun Sep  3 16:33:33 2017" elapsed="4.25" summary="Nmap done at Sun Sep  3 16:33:33 2017; 256 IP addresses (2 hosts up) scanned in 4.25 seconds" exit="success"/><hosts up="2" down="254" total="256"/>
+</runstats>
+</nmaprun>
