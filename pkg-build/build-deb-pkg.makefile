@@ -12,10 +12,10 @@ compose_pkg_files : copy_www_files
 #moving files to the destination dirs for buidling the package
 copy_www_files : 
 	mkdir -p ./$(HTML_DESTINATION_DIR)
-	cp ../index.html ./$(HTML_DESTINATION_DIR)/
-	cp -r ../css ./$(HTML_DESTINATION_DIR)/
-	cp -r ../img ./$(HTML_DESTINATION_DIR)/
-	cp -r ../js ./$(HTML_DESTINATION_DIR)/
+	cp ../www/index.html ./$(HTML_DESTINATION_DIR)/
+	cp -r ../www/css ./$(HTML_DESTINATION_DIR)/
+	cp -r ../www/img ./$(HTML_DESTINATION_DIR)/
+	cp -r ../www/js ./$(HTML_DESTINATION_DIR)/
 
 build_all_packages : build_i386_linux_pkg build_amd64_linux_pkg build_arm_linux_pkg
 

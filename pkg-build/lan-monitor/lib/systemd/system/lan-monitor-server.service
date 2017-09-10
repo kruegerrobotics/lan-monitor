@@ -3,6 +3,7 @@ Description=Lan Monitor Service
 After=network.target
  
 [Service]
+WorkingDirectory=/opt/lan-monitor/bin
 ExecStart=/opt/lan-monitor/bin/lan-monitor-server
 StandardOutput=syslog
 StandardError=syslog
