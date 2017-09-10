@@ -1,12 +1,14 @@
 # lan-monitor
 
+## Dowload here [github-release](https://github.com/KruDex/lan-monitor/releases/latest) ##
+
 ## What it does
 
 This software builds a dynamic graphical website showing the computers with their hostnames and IP addresses in the local network.
 
 It is for laboratory or home type networks to get a quick impression of the computers online without requiring additional soft or hardware.
 
-![alt text](/doc/website_impression.png "Impression of the scan result as website")
+![alt text](www/doc/website_impression.png "Impression of the scan result as website")
 
 ## Features
 
@@ -24,7 +26,7 @@ It is based on a periodically executed nmap scan. The result of this scan, a xml
 
 ### Automatic installation by using the provided Debian package
 
-If running on Debian or a deb base package manage you can use the debian package provided [here](https://github.com/KruDex/lan-monitor/releases/download/v1.4.1/lan-monitor.deb).
+If running on Debian or a deb base package manager you can use the debian packages provided [here](https://github.com/KruDex/lan-monitor/releases/latest).
 
 #### WARNINGS for debian package
 
