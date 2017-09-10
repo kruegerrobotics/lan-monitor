@@ -4,6 +4,7 @@
 import string
 import argparse
 import sys
+import git
 
 def main():
     """simple main"""
@@ -16,7 +17,8 @@ def main():
     args = parser.parse_args()
 
     #read version information
-    version = "1.5.1"
+    repo = git.repo.Repo("../")
+    version = repo.git.describe()[1:]
     if args.version:
         print(version)
         quit()

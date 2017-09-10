@@ -5,8 +5,14 @@ HTML_DESTINATION_DIR=$(PACKAGE_DATA_DIR)/www
 
 VERSION=$(shell ./createcontrolfile.py -v)
 
-all : build_package
-	
+#for the testing purpose
+#requires the vms created and ready
+VM_NAME_AMD64=test-amd64
+SNAPSHOT_NAME=booted_ip_sshkey
+
+#the default target build all debian packages 
+all : build_all_packages
+
 compose_pkg_files : copy_www_files 
 		
 #moving files to the destination dirs for buidling the package
@@ -70,6 +76,25 @@ build_arm_linux_binary :
 	GOOS=linux GOARCH=arm go build 
 	mv ../lan-monitor-server/lan-monitor-server $@/
 
+test_amd64_vbox : build_amd64_linux_pkg
+	VBoxManage controlvm $(VM_NAME_AMD64) poweroff
+
+	#give the vm mangager some time
+	sleep 1
+
+	#restore the old snapshot
+	#VBoxManage snapshot $VM_NAME restore $SNAPSHOT_NAME
+	VBoxManage snapshot $(VM_NAME_AMD64) restore $(SNAPSHOT_NAME)
+
+	#power on the vm
+	VBoxManage startvm $(VM_NAME_AMD64)
+
+	scp $(PACKAGE_NAME)_$(VERSION)_amd64.deb root@192.168.0.175:~/
+	ssh root@192.168.0.175 apt-get install nmap -y
+	ssh root@192.168.0.175 dpkg -i $(PACKAGE_NAME)_$(VERSION)_amd64.deb
+	ssh root@192.168.0.175 systemctl status lan-monitor-server
+
+#cleanup
 clean : clean_binary_builds clean_package_builds clean_packages clean_package_files
 
 clean_binary_builds : 
