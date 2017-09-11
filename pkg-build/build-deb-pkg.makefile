@@ -49,11 +49,11 @@ build_arm_linux_pkg : copy_www_files build_arm_linux_binary
 	mkdir -p $@
 	mkdir -p $@/$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)/bin
 	cp -r $(PACKAGE_NAME) $@/
-	./createcontrolfile.py -a arm -t control.tmpl -d $@/$(PACKAGE_NAME)/DEBIAN/control
+	./createcontrolfile.py -a armhf -t control.tmpl -d $@/$(PACKAGE_NAME)/DEBIAN/control
 	cp build_arm_linux_binary/lan-monitor-server $@/$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)/bin/
 	
 	#build the $@ with version $(VERSION)
-	fakeroot dpkg --build $@/$(PACKAGE_NAME) $(PACKAGE_NAME)_$(VERSION)_arm.deb
+	fakeroot dpkg --build $@/$(PACKAGE_NAME) $(PACKAGE_NAME)_$(VERSION)_armhf.deb
 
 #Building of the webserver binaries
 build_all_binaries : build_i386_linux_binary build_x86_64_linux_exec build_arm_linux_exec	
