@@ -1,6 +1,6 @@
 # lan-monitor
 
-## Dowload here [github-release](https://github.com/KruDex/lan-monitor/releases/latest) ##
+## Dowload here [github-release](https://github.com/KruDex/lan-monitor/releases/latest)
 
 ## What it does
 
@@ -30,22 +30,18 @@ If running on Debian or a deb base package manager you can use the debian packag
 
 #### WARNINGS for debian package
 
-Here are some tradeoffs between configuring a webserver and a out of the pocket solution. If a step by step approach is required, please read below the manual installation procedure.
+It automatically starts a webserver on port 8080. In case another application is using this port it will fail starting or prevents the other application from start. The port can be configured either in the config file */etc/lan-monitor.conf* or using the commandline option.
 
-##### Deletion in nginx default webpage config
+##### Not everything is automatic (yest)
 
-This will install everything automatically especially the webserver settings and it will DELETE the default nginx page. *This has been done for better automation but has this draw back - I am investigating a better solution*
-
-##### Not everything is automatic
-
-The ip range that has to be scanned needs for not to be set in the file /usr/bin/lan-monitor-scan.sh (default is 192.168.1.0/24)
+The ip range or adresses that are palnned to scan are either set in the config file  */etc/lan-monitor.conf* or command line option 
 
 ### Automatic installation procedure
 
 This package requires nmap and nginx, you can install these by typing:
 
 ```bash
-apt install nmap nginx
+apt install nmap
 ```
 
 Installation of the package
@@ -54,23 +50,27 @@ Installation of the package
 dpkg -i lan-monitor.deb
 ```
 
-If nmap and nginx are not installed apt will complain and the missing packages can be installed by typing:
+If nmap is not installed apt will complain and the missing package. It can be installed by typing:
 
 ```bash
 apt-get install -f
 ```
 
-### Test the install
+### Test the installation
 
-If you enter not the ip address or the computer name in the browser it should display the computers in the lan e.g. http://192.168.1.2 or http://myserver. It can take 3 minutes until the first nmap scan is completed. There should be the file scan.xml in the */var/www/lan-monitor* folder.
+If you enter not the ip address or the computer name in the browser it should display the computers in the lan e.g. http://192.168.1.2:8080 on the computer itself (http://127.0.01:8080. It can take a few minutes until the first nmap scan is completed. There should be the file scan.xml in the */var/opt/lan-monitor* folder.
 
 ### Manual installation
 
-To install the required components and the configuration of the webserver can also be done manually. This is recommended if there are is already a webserver is in use and/or for greater control of the system
+To install the required components and the configuration of the webserver can also be done manually. This is recommended if there are is already a webserver is in use and/or for greater control of the system.
 
-#### Webserver
+#### Files for the website
 
-A common webserver like nginx can be used with this repository checked out at the  website path e.g. /var/www/html
+The files to display the website are in the www folder of this repository. The scan.xml from the NMAP scan results needs to be in the same location as the index.html.
+
+#### Webserver executable
+
+The executable, managing the periodic scan and serving the webpages is a go executable. It expects the website in a path ../www relative to it. Later this should be configurable via a config file.
 
 #### NMAP installation
 
@@ -80,35 +80,7 @@ The source file for the parsing is build on a nmap scan result in xml format. On
 apt get install nmap
 ```
 
-#### Periodic scanning via crontab
-
-Installing a crontab as root
-
-```bash
-crontab -e
-```
-
-Using crontab to run it e.g. every 2 minutes:
-
-`*/2 * * * * /usr/bin/lan-monitor-scan.sh`
-
-#### NMAP scan configuration - contents of scan_lan.sh
-
-```bash
-#!/bin/sh
-#the folder where the webserver expects the scan report
-HTML_FOLDER=/var/www/lan-monitor
- 
-#TODO get the IP range to scan from the conf file
-
-nmap -p 22,80 -oX $HTML_FOLDER/last_scan.xml 192.168.1.0/24
-cp  $HTML_FOLDER/last_scan.xml  $HTML_FOLDER/scan.xml
-rm $HTML_FOLDER/last_scan.xml
-```
-
- The path, here /var/www/html should be the same as in the used webserver
-
-#### Detailed NMAP Options
+#### Used NMAP Options for the scan
 
 - -p for scanning the ports 22 and 80
 - -oX output file
