@@ -31,8 +31,7 @@ type Config struct {
 }
 
 //ReadConfig reads the config file
-func ReadConfig() Config {
-	var configfile = "/etc/lan-monitor.conf"
+func ReadConfig(configfile string) Config {
 	_, err := os.Stat(configfile)
 	if err != nil {
 		log.Fatal("Config file is missing: ", configfile)
@@ -128,27 +127,48 @@ func main() {
 	log.Println("Starting lan-monitor-server ver: " + version)
 
 	//process the config
-	//first the config file is read if parameters not set the defaults are used
-	//if command line parameters are set the config file will be ignored
+	//1st the config file is read and set parameters applied
+	//2nd the command line parameters are interpreted,
+	//if they are set they will overrule the config file
+	//3rd if none of the above is applied the program reverts to the hardcoded defaults
 
 	//defaults
 	var config Config
+	defaultConfigFileLocation := "/etc/lan-monitor/config"
 	config.HTTPPort = 8080
 	config.NMAPRange = "192.168.1.1/24"
 	config.ScanIntervall = 120 //seconds
 
-	//read the configfile
-	config = ReadConfig()
-
 	displayVersion := flag.Bool("version", false, "Prints the version number")
-	httpPort := flag.Int("port", config.HTTPPort, "HTTP port for the webserver (some ports e.g. 80 require su permissions)")
-	nmapScanRange := flag.String("range", config.NMAPRange, "The range NMAP should scan e.g. 192.168.1.1/24 it has to be nmap compatible")
-	scanIntervall := flag.Int("scan_rate", config.ScanIntervall, "The intervall of the scans in seconds")
+	cmdlineHTTPPort := flag.Int("port", config.HTTPPort, "HTTP port for the webserver")
+	cmdlineNMAPScanRange := flag.String("range", config.NMAPRange, "The range NMAP should scan e.g. 192.168.1.1/24 it has to be nmap compatible")
+	cmdlineScanIntervall := flag.Int("scan-rate", config.ScanIntervall, "The intervall of the scans in seconds")
+	configFileLocation := flag.String("config-file", defaultConfigFileLocation, "Location of the config file")
 	flag.Parse()
 
-	globalScanRange = *nmapScanRange
-	globalScanIntervall = *scanIntervall
-	log.Println("Config - range:", globalScanRange, "port:", *httpPort, "intervall:", globalScanIntervall, "sec")
+	//read the configfile
+	config = ReadConfig(*configFileLocation)
+
+	//if no range is defined in the config file
+	if config.NMAPRange == "" {
+		globalScanRange = *cmdlineNMAPScanRange
+	} else {
+		globalScanRange = config.NMAPRange
+	}
+
+	//if no port is defined in the config file
+	if config.HTTPPort == 0 {
+		config.HTTPPort = *cmdlineHTTPPort
+	}
+
+	//if no scan intervall is defined in the config file
+	if config.ScanIntervall == 0 {
+		globalScanIntervall = *cmdlineScanIntervall
+	} else {
+		globalScanIntervall = config.ScanIntervall
+	}
+
+	log.Println("Config - range:", globalScanRange, "port:", config.HTTPPort, "intervall:", globalScanIntervall, "sec")
 
 	if *displayVersion == true {
 		fmt.Println("Version: " + version)
@@ -170,7 +190,7 @@ func main() {
 
 	//starting the webserver
 	http.HandleFunc("/", pageHandler)
-	err = http.ListenAndServe(":"+strconv.Itoa(*httpPort), nil)
+	err = http.ListenAndServe(":"+strconv.Itoa(config.HTTPPort), nil)
 	if err != nil {
 		log.Println("Server error - " + err.Error())
 	}
