@@ -23,7 +23,7 @@ copy_www_files :
 	cp -r ../www/img ./$(HTML_DESTINATION_DIR)/
 	cp -r ../www/js ./$(HTML_DESTINATION_DIR)/
 
-build_all_packages : build_i386_linux_pkg build_amd64_linux_pkg build_arm_linux_pkg
+build_all_packages : build_i386_linux_pkg build_amd64_linux_pkg build_armhf_linux_pkg
 
 build_i386_linux_pkg : copy_www_files build_i386_linux_binary
 	mkdir -p $@
@@ -45,7 +45,7 @@ build_amd64_linux_pkg : copy_www_files build_amd64_linux_binary
 	#build the $@ with version $(VERSION)
 	fakeroot dpkg --build $@/$(PACKAGE_NAME) $(PACKAGE_NAME)_$(VERSION)_amd64.deb
 
-build_arm_linux_pkg : copy_www_files build_arm_linux_binary
+build_armhf_linux_pkg : copy_www_files build_arm_linux_binary
 	mkdir -p $@
 	mkdir -p $@/$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)/bin
 	cp -r $(PACKAGE_NAME) $@/
@@ -56,7 +56,7 @@ build_arm_linux_pkg : copy_www_files build_arm_linux_binary
 	fakeroot dpkg --build $@/$(PACKAGE_NAME) $(PACKAGE_NAME)_$(VERSION)_armhf.deb
 
 #Building of the webserver binaries
-build_all_binaries : build_i386_linux_binary build_x86_64_linux_exec build_arm_linux_exec	
+build_all_binaries : build_i386_linux_binary build_x86_64_linux_exec build_armhf_linux_exec	
 
 build_i386_linux_binary : 
 	mkdir -p $@; 
@@ -70,7 +70,7 @@ build_amd64_linux_binary :
 	GOOS=linux GOARCH=amd64 go build -ldflags="-X main.version=$(VERSION)"
 	mv ../lan-monitor-server/lan-monitor-server $@/
 
-build_arm_linux_binary : 
+build_armhf_linux_binary : 
 	mkdir -p $@; 
 	cd ../lan-monitor-server; \
 	GOOS=linux GOARCH=arm go build -ldflags="-X main.version=$(VERSION)"
@@ -102,7 +102,7 @@ clean_binary_builds :
 	rm -rf build_i386_linux_binary
 
 clean_package_builds : 
-	rm -rf build_arm_linux_pkg
+	rm -rf build_armhf_linux_pkg
 	rm -rf build_amd64_linux_pkg
 	rm -rf build_i386_linux_pkg
 
