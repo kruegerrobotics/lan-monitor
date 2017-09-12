@@ -32,13 +32,13 @@ If running on Debian or a deb base package manager you can use the debian packag
 
 It automatically starts a webserver on port 8080. In case another application is using this port it will fail starting or prevents the other application from start. The port can be configured either in the config file */etc/lan-monitor.conf* or using the commandline option.
 
-##### Not everything is automatic (yet)
+##### Not everything is automatic or configurable by the web interface (yet)
 
-The ip range or adresses that are palnned to scan are either set in the config file  */etc/lan-monitor.conf* or command line option.
+The ip range or adresses that are planned to scan are either set in the config file  */etc/lan-monitor.conf* or command line option.
 
 ### Automatic installation procedure
 
-This package requires nmap and nginx, you can install these by typing:
+This package requires nmap you can install it by typing:
 
 ```bash
 apt install nmap
