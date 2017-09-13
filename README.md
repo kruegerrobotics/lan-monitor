@@ -92,4 +92,3 @@ If you enter not the ip address or the computer name in the browser it should di
 
 - -p for scanning the ports 22 and 80
 - -oX output file
-- scanning the 192.168.1.0/24 subnet
