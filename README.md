@@ -4,11 +4,19 @@
 
 ## What it does
 
-This software builds a dynamic graphical website showing the computers with their hostnames and IP addresses in the local network.
+This software builds a dynamic graphical website showing the results of a NMAP scan. This tool has an integrated webserver to display this website with the hostnames, IP addresses and selected open ports.
 
-It is for laboratory or home type networks to get a quick impression of the computers online without requiring additional soft or hardware.
+[alt text](www/doc/website_impression.png "Impression of the scan result as website")
 
-![alt text](www/doc/website_impression.png "Impression of the scan result as website")
+## Ideas and intentions
+
+## Scanning local area networks
+
+It was the original intend to get a quick overview of local laboratory or home networks. Basically to see immideately the status of the computers connected. Meaning the important open ports (ssh, http) and also if a computers have been switched off. In our laboratory network with a lot of embedded devices. A website, accessible by everybody inside, with the real time network status helped to see if a certain device is online and accessible.
+
+### Scanning public IP-addresses
+
+From some interactions I learned that this could be also of interest. I would be happy to learn with features might be interesting here. e.g. scan more ports, display them, nmap --top-ports, ... **just raise an issue and we can work on it together**
 
 ## Features
 
@@ -24,7 +32,7 @@ It is based on a periodically executed nmap scan. The result of this scan, a xml
 
 ## Installation
 
-### Automatic installation by using the provided Debian package
+### Installation by using the provided Debian package
 
 If running on Debian or a deb base package manager you can use the debian packages provided [here](https://github.com/KruDex/lan-monitor/releases/latest).
 
@@ -36,7 +44,7 @@ It automatically starts a webserver on port 8080. In case another application is
 
 The ip range or adresses that are planned to scan are either set in the config file  */etc/lan-monitor.conf* or command line option.
 
-### Automatic installation procedure
+#### Installation procedure
 
 This package requires nmap you can install it by typing:
 
@@ -56,10 +64,6 @@ If nmap is not installed apt will complain and the missing package. It can be in
 apt-get install -f
 ```
 
-### Test the installation
-
-If you enter not the ip address or the computer name in the browser it should display the computers in the lan e.g. (http://192.168.1.2:8080) on the computer itself (http://127.0.01:8080). It can take a few minutes until the first nmap scan is completed. There should be the file scan.xml in the */var/opt/lan-monitor* folder.
-
 ### Manual installation
 
 To install the required components and the configuration of the webserver can also be done manually. This is recommended if there are is already a webserver is in use and/or for greater control of the system.
@@ -70,7 +74,7 @@ The files to display the website are in the www folder of this repository. The s
 
 #### Webserver executable
 
-The executable, managing the periodic scan and serving the webpages is a go executable. It expects the website in a path ../www relative to it. Later this should be configurable via a config file.
+The executable, managing the periodic scan and serving the webpages is a go executable. It expects the website in a path *../www relative* to it. Later this should be configurable via a config file.
 
 #### NMAP installation
 
@@ -80,7 +84,11 @@ The source file for the parsing is build on a nmap scan result in xml format. On
 apt get install nmap
 ```
 
-#### Used NMAP Options for the scan
+### Test the installation
+
+If you enter not the ip address or the computer name in the browser it should display the computers in the lan e.g. (http://192.168.1.2:8080) on the computer itself (http://127.0.01:8080). It can take a few minutes until the first nmap scan is completed. There should be the file scan.xml in the */var/opt/lan-monitor* folder.
+
+## Used NMAP Options for the scan
 
 - -p for scanning the ports 22 and 80
 - -oX output file
