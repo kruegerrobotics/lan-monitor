@@ -6,7 +6,7 @@
 
 This software builds a dynamic graphical website showing the results of a NMAP scan. This tool has an integrated webserver to display this website with the hostnames, IP addresses and selected open ports.
 
-[alt text](www/doc/website_impression.png "Impression of the scan result as website")
+![alt text](www/doc/website_impression.png "Impression of the scan result as website")
 
 ## Ideas and intentions
 
