@@ -1,99 +1,142 @@
-//globald
+//globals
 //computer variable array
-var Computers = [];
+var networkElements = [];
+var networkElementsOld = [];
 var Scan_Time = "today";
 var Name_Filter_Enabled = true;
 
-function Start() {
-    Parse_Default_List();
-    Read_XML();
-    setInterval(Read_XML, 60 * 1000);
+//Init function to get the modal ready for closinng
+function initModal() {
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            cleanModal();
+            modal.style.display = "none";
+        }
+    }
+
+    span.onclick = function () {
+        cleanModal();
+        modal.style.display = "none";
+    }
 }
 
-function Toggle_Full_Names(element) {
+function start() {
+    initModal();
+    readXML("default.xml");
+    //readXML("scan.xml");
+    setInterval(readXML("scan.xml"), 60 * 1000);
+}
+
+function cleanModal() {
+    //var modal = document.getElementById("")
+    //var modal = document.getElementById("")
+    var ports = document.getElementsByClassName("modalPortEntry");
+    while (ports.length > 0) {
+        ports[0].parentNode.removeChild(ports[0]);
+        ports = document.getElementsByClassName("modalPortEntry");
+    }
+}
+
+function populateModal(Name, IP, Ports) {
+    var computerName = document.getElementById("modalComputerName");
+    var computerIP = document.getElementById("modalComputerIP");
+    var modal = document.getElementById("myModal");
+    computerIP.innerHTML = IP;
+    if (Name == "") {
+        computerName.innerHTML = Name;
+    } else {
+        computerName.innerHTML = "unknown";
+    }
+
+    var portListElement = document.getElementById("modalPortList");
+
+    //list the ports
+    for (var p in Ports) {
+        var Entry = document.createElement("p");
+        Entry.className = "modal-content-ports";
+        Entry.innerHTML = p;
+        portListElement.appendChild(Entry);
+    }
+
+    modal.style.display = "block";
+}
+
+
+function toggleFullNames(element) {
     //if its checked no filter is applied
     if (element.checked) {
         Name_Filter_Enabled = false;
     } else {
         Name_Filter_Enabled = true;
     }
-    Read_XML();
+    readXML("scan.xml");
 }
 
 
-function Read_XML() {
+function readXML(fileName) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            Scan(this);
+            switch (fileName) {
+                case "scan.xml":
+                    scan(this);
+                    break;
+                case "default.xml":
+                    scanDefaultList(this);
+                    break;
+                default:
+                    break;
+            }
         }
     };
-    xhttp.open("GET", "scan.xml", true);
-    xhttp.send();
-}
-
-function Parse_Default_List() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            Scan_Default_List(this);
-        }
-    };
-    xhttp.open("GET", "default.xml", true);
+    xhttp.open("GET", fileName, true);
     xhttp.send();
 }
 
 //Scans the default list if available and (pre) populates the Computer list
-function Scan_Default_List(xml) {
+function scanDefaultList(xml) {
     var xmlDoc = xml.responseXML;
+    var defaultComputers = xmlDoc.getElementsByTagName("networkelement");
 
-    var Default_Computers = xmlDoc.getElementsByTagName("Computer");
-    var Num_Default_Computers = Default_Computers.length;
-
-    for (var i = 0; i < Num_Default_Computers; i++) {
-
-        var Computer = {
-            "Hostname": Default_Computers[i].getAttribute("name"),
-            "IP": Default_Computers[i].getAttribute("ip"),
-            "SSH": Default_Computers[i].getAttribute("ssh"),
-            "HTTP": Default_Computers[i].getAttribute("http"),
-            "Deactivated": false
-        };
-        Computers.push(Computer);
+    for (let i = 0; i < defaultComputers.length; i++) {
+        let hostName = defaultComputers[i].getAttribute("name");
+        let ip = defaultComputers[i].getAttribute("ip");
+        let ports = defaultComputers[i].getAttribute("ports");
+        networkElementsOld.push(new NetworkElement(ip, hostName, ports, false, false));
     }
 }
 
 //save the current computer list to xml file which is offered to the user
 //Computers which are currently offline will be not part of this list
-function Save_Default_List() {
+function saveDefaultList() {
     var xmlDoc = document.implementation.createDocument("", "", null);
-    var root = xmlDoc.createElement("Default_Computers");
+    var root = xmlDoc.createElement("defaultList");
     var Is_List_Populated = false;
-
-    for (var i in Computers) {
-        if (Computers[i].Deactivated == false) {
-            var Entry = xmlDoc.createElement("Computer");
-            Entry.setAttribute("ip", Computers[i].IP);
-            Entry.setAttribute("name", Computers[i].Hostname);
-            Entry.setAttribute("ssh", Computers[i].SSH);
-            Entry.setAttribute("http", Computers[i].HTTP);
+    for (var i in networkElements) {
+        if (networkElements[i].goneOffline == false) {
+            var Entry = xmlDoc.createElement("networkelement");
+            Entry.setAttribute("ip", networkElements[i].ip);
+            Entry.setAttribute("name", networkElements[i].computerName);
+            Entry.setAttribute("ports", networkElements[i].portList);
             root.appendChild(Entry);
             Is_List_Populated = true;
         }
     }
     if (Is_List_Populated == true) {
         xmlDoc.appendChild(root);
-
-        File_Content = (new XMLSerializer()).serializeToString(xmlDoc);
+        let fileContent = (new XMLSerializer()).serializeToString(xmlDoc);
         var XML_for_Download = document.createElement('a');
-        XML_for_Download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(File_Content));
+        XML_for_Download.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContent));
         XML_for_Download.setAttribute('download', "default.xml");
         XML_for_Download.click();
     }
 }
 
 //Filters the hostname or shows the full Domain name if not filtered
-function Filter_Hostname(Host_Name, Apply_Filter = true) {
+function filterHostname(Host_Name, Apply_Filter = true) {
     if (Apply_Filter == false) {
         return Host_Name;
     } else {
@@ -102,190 +145,80 @@ function Filter_Hostname(Host_Name, Apply_Filter = true) {
     }
 }
 
-function Scan(xml) {
+function scan(xml) {
     //the general xml handler
     var xmlDoc = xml.responseXML;
 
     //write down the scan time
     Scan_Time = xmlDoc.getElementsByTagName("nmaprun")[0].getAttribute("startstr");
     var Num_Hosts = xmlDoc.getElementsByTagName("host").length;
-    var Computers_New = [];
+
+    //clean the old list
+    for (let i = networkElements.length - 1; i >= 0; i--) {
+        networkElements[i].removeElement();
+        networkElements.splice(i, 1);
+    }
+
     //looping throught the xml entries
     for (var i = 0; i < Num_Hosts; i++) {
-        var Host_Element = xmlDoc.getElementsByTagName("host")[i];
-        var IP_Address = Host_Element.getElementsByTagName("address")[0].getAttribute("addr");
-        var Hostname_Element = Host_Element.getElementsByTagName("hostnames")[0].getElementsByTagName("hostname")[0];
-        if (Hostname_Element) {
-            var Hostname = Hostname_Element.getAttribute("name");
-            var Hostname = Filter_Hostname(Hostname, Name_Filter_Enabled);
+        var hostElement = xmlDoc.getElementsByTagName("host")[i];
+        var ip = hostElement.getElementsByTagName("address")[0].getAttribute("addr");
+        var hostNameElement = hostElement.getElementsByTagName("hostnames")[0].getElementsByTagName("hostname")[0];
+        let hostname = " "
+
+        if (hostNameElement) {
+            hostName = Hostname_Element.getAttribute("name");
+            hostName = filterHostname(Hostname, Name_Filter_Enabled);
         } else {
-            var Hostname = "Unknown";
+            hostName = "Unknown";
         }
 
-        var Ports_Element = Host_Element.getElementsByTagName("ports")[0].getElementsByTagName("port");
-        for (var j = 0; j < Ports_Element.length; j++) {
-            var Port_ID = Ports_Element[j].getAttribute("portid");
-            var Port_Status = Ports_Element[j].getElementsByTagName("state")[0].getAttribute("state");
-        }
-        var SSH_State = Ports_Element[0].getElementsByTagName("state")[0].getAttribute("state");
-        var HTTP_State = Ports_Element[1].getElementsByTagName("state")[0].getAttribute("state");
-
-        //add all to main array
-        var Computer = {
-            "Hostname": Hostname,
-            "IP": IP_Address,
-            "SSH": SSH_State,
-            "HTTP": HTTP_State,
-            "Deactivated": false
-        };
-        Computers_New.push(Computer);
-    } //end for loop
-
-    //check for lost/deactivated computers (they should be displayed grayed out)
-    var missed = false;
-    for (var old_c in Computers) {
-        var Computer_Counter = 0;
-        for (var new_c in Computers_New) {
-
-            if (Computers_New[new_c].IP == Computers[old_c].IP) {
-                //we found the same IP so we can move on
-                missed = false;
-                break;
-            }
-            Computer_Counter++;
-            if (Computer_Counter == Computers_New.length) {
-                //The computer is not here - we looking in the complete array
-                var Missing_Computer = {
-                    "Hostname": Computers[old_c].Hostname,
-                    "IP": Computers[old_c].IP,
-                    "SSH": Computers[old_c].SHH,
-                    "HTTP": Computers[old_c].HTTP,
-                    "Deactivated": true
-                };
-                missed = true;
-                Computers_New.push(Missing_Computer);
+        let ports = [];
+        var portsElement = hostElement.getElementsByTagName("ports")[0].getElementsByTagName("port");
+        for (let j = 0; j < portsElement.length; j++) {
+            let portID = portsElement[j].getAttribute("portid");
+            let portStatus = portsElement[j].getElementsByTagName("state")[0].getAttribute("state")
+            if (portStatus == "open") {
+                ports.push(portID);
             }
         }
-
+        networkElements.push(new NetworkElement(ip, hostName, ports));
     }
-    Computers_New.sort(function (a, b) {
-        return dot2num(a.IP) - dot2num(b.IP);
+
+    //find the elements that have not been here
+    let old = [];
+    let act = [];
+    for (let i = 0; i < networkElementsOld.length; i++) {
+        old.push(networkElementsOld[i].ip);
+    }
+    for (let i = 0; i < networkElements.length; i++) {
+        act.push(networkElements[i].ip);
+    }
+
+    goneOffline = old.filter(function (v) {
+        return !act.includes(v);
+    })
+
+    for (let j = 0; j < goneOffline.length; j++) {
+        for (let i = 0; i < networkElementsOld.length; i++) {
+            if (networkElementsOld[i].ip === goneOffline[j]) {
+                e = new NetworkElement(networkElementsOld[i].ip, networkElementsOld[i].computerName, networkElementsOld[i].portList, true);
+                networkElements.push(e);
+            }
+        }
+    }
+
+    networkElements.sort(function (a, b) {
+        return dot2num(a.ip) - dot2num(b.ip);
     });
-    Computers = Computers_New;
-    Display();
 }
 
-function Remove_Old_Elements() {
-    //remove the old headline
-    /*var r1 = document.getElementById("Scan_Time_ID");
-    if (r1) {
-        r1.parentNode.removeChild(r1);
-    }*/
-
+function removeOldElements() {
     var r2 = document.getElementById("parent");
     if (r2) {
         r2.parentNode.removeChild(r2);
     }
-    /*
-        //remove the old entries
-        var r3 = document.getElementById("parent");
-        if (r3)
-        {
-            while (r3.hasChildNodes())
-            {
-                r3.removeChild(r2.lastChild);
-            }
-        }*/
 }
-
-function Display() {
-    //remove all older elements
-    //remove the old headline first
-    Remove_Old_Elements();
-
-    var Scan_Time_Headline = document.getElementById("Scan_Time_ID");
-    //document.createElement("h1");
-   // Scan_Time_Headline.id = "Scan_Time_ID";
-    Scan_Time_Headline.innerHTML = "Scan time: " + Scan_Time;
-    document.body.appendChild(Scan_Time_Headline);
-    var parent_div = document.createElement("div")
-    parent_div.id = "parent";
-    document.body.appendChild(parent_div);
-    var Num_Hosts = Computers.length;
-
-    for (var i in Computers) {
-        var Computer_Element = document.createElement("div");
-        Computer_Element.className = "Computer_Entry";
-        Computer_Element.id = "child" + i.toString();
-
-        //the box (actually 2 combined boxes for display)
-        var Computer_Element_Info = document.createElement("div");
-        Computer_Element_Info.className = "Information_Bar";
-        var Computer_Element_Payload = document.createElement("div");
-        Computer_Element_Payload.className = "Payload_Bar";
-
-        //the IP address
-        var Elem_IP = document.createElement("p");
-        Elem_IP.innerHTML = "IP: " + Computers[i].IP;
-        Elem_IP.className = "IP_Text";
-
-        //the hostname
-        var Elem_Name = document.createElement("p");
-        Elem_Name.innerHTML = "Name: " + Computers[i].Hostname;
-        Elem_Name.className = "Computer_Text";
-
-        document.getElementById(parent_div.id).appendChild(Computer_Element);
-        Computer_Element.appendChild(Computer_Element_Info);
-        Computer_Element.appendChild(Computer_Element_Payload);
-        Computer_Element_Info.appendChild(Elem_IP);
-        Computer_Element_Info.appendChild(Elem_Name);
-        
-
-        var Service_Text = document.createElement("p");
-        Service_Text.className = "Service_Text";
-
-        if (Computers[i].Deactivated == true) {
-            Service_Text.innerHTML = "System offline";
-            Service_Text.style.fontSize = 24;
-            Service_Text.style.color = "DarkGrey";
-            Computer_Element_Info.style.backgroundColor = "#FE553E";
-
-            //ensure no services are displayed
-            Computers[i].SSH == "closed";
-            Computers[i].HTTP == "closed"
-        }
-        else {
-            Service_Text.innerHTML = "Available services:";
-        }
-
-        Computer_Element_Payload.appendChild(Service_Text);
-
-        var Service_Flag = false;
-        if (Computers[i].SSH == "open") {
-            var Elem_SSH_Img = document.createElement("img");
-            Elem_SSH_Img.src = "img/SSH_logo.png";
-            Elem_SSH_Img.id = "port_logo";
-            Computer_Element_Payload.appendChild(Elem_SSH_Img);
-            Service_Flag = true;
-        }
-
-        if (Computers[i].HTTP == "open") {
-            var Elem_HTTP_Link = document.createElement("a");
-            Elem_HTTP_Link.href = "http://" + Computers[i].IP;
-            Elem_HTTP_Link.target = "_blank";
-            Elem_HTTP_Img = document.createElement("img");
-            Elem_HTTP_Img.src = "img/HTTP_logo.png";
-            Elem_HTTP_Img.id = "port_logo";
-            Elem_HTTP_Link.appendChild(Elem_HTTP_Img);
-            Computer_Element_Payload.appendChild(Elem_HTTP_Link);
-            Service_Flag = true;
-        }
-
-        if (Service_Flag == false && Computers[i].Deactivated == false) {
-            Service_Text.innerHTML = "No services available";
-        }
-    } //end for loop
-} //end function Display
 
 //IP address conversion
 function dot2num(dot) {

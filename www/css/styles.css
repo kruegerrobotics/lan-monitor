@@ -20,8 +20,7 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQYV2
     margin: 16px;
   }
 
-.Information_Bar{
-  background-color: black;
+  .Information_Bar, .Information_Bar_Offline  {
   border-top-left-radius: var(--corner_radius);
   border-top-right-radius: var(--corner_radius);
   /*float: left;*/
@@ -30,6 +29,16 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQYV2
   line-height: 10px;
   /*text-align: center; */
   padding: 8px;
+  cursor: pointer;
+}
+
+.Information_Bar{
+  background-color: black;
+  
+}
+
+.Information_Bar_Offline {
+  background-color:rgb(254, 85, 62)
 }
 
 .Payload_Bar{
@@ -65,13 +74,23 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQYV2
   float : left;
 }
 
-.Service_Text {
+.Service_Text_Available, .Service_Text_Offline {
   font-family : sans-serif;
   font-size : 14px;
   color : black;
   margin-top : 0px;
   margin-bottom : 0px;
   margin-left : 10px;
+}
+
+.Service_Text_Available {
+  font-size : 14px;
+  color : black;
+}
+
+.Service_Text_Offline {
+  font-size : 24px;
+  color : darkgrey;
 }
 
 .Check_Box_Btn {
@@ -266,4 +285,46 @@ h1{
   padding-top: 120%;
   
   transition: width .2s ease-out, padding-top .2s ease-out;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 200px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgba(0, 0, 0, 0.49); /* Black w/ opacity */  
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: var(--corner_radius);
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.modal-content-ports {
+  font-family: sans-serif;
+  font-weight: bold;
 }
