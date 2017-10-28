@@ -9,6 +9,20 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQYV2
     ) repeat;
 }
 
+button {
+  display: inline-block;
+  margin-left: 16;
+  padding: 16px 16px;
+  font-size: 24px;
+  font-family: sans-serif;
+  appearance: none;
+  box-shadow: none;
+  border-radius: 0;
+  background-color: 9E9E9E;
+  border-color: 9E9E9E;
+  
+}
+
 #port_logo {
     width: 90px;
     margin-top: 10px;

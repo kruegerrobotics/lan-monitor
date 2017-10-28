@@ -211,6 +211,9 @@ function scan(xml) {
     networkElements.sort(function (a, b) {
         return dot2num(a.ip) - dot2num(b.ip);
     });
+    console.log(networkElements);
+    console.log(networkElementsOld);
+    networkElementsOld = networkElements.slice();
 }
 
 function removeOldElements() {
