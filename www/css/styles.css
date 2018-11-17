@@ -11,15 +11,15 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAIElEQVQYV2
 
 button {
   display: inline-block;
-  margin-left: 16;
+  margin-left: 16px;
   padding: 16px 16px;
   font-size: 24px;
   font-family: sans-serif;
   appearance: none;
   box-shadow: none;
   border-radius: 0;
-  background-color: 9E9E9E;
-  border-color: 9E9E9E;
+  background-color: #9E9E9E;
+  border-color: #9E9E9E;
   
 }
 
@@ -185,7 +185,7 @@ h1{
   font-family: sans-serif;
   font-size: 25px;
   font-style: bold;
-  font-weight: 10;
+  font-weight: 100;
 }
 .switch-label:before, .switch-label:after {
   content: "";

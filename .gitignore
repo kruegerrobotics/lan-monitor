@@ -5,3 +5,7 @@ node_modules/
 lan-monitor-server/debug
 .vscode/settings.json
 temp_scan.xml
+
+env
+.idea
+*.iml

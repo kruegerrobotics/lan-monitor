@@ -1,9 +1,10 @@
+SHELL=/bin/bash
 PACKAGE_NAME=lan-monitor
 INSTALL_DIRECTORY=/opt/$PACKAGE_NAME
 PACKAGE_DATA_DIR=$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)
 HTML_DESTINATION_DIR=$(PACKAGE_DATA_DIR)/www
 
-VERSION=$(shell ./createcontrolfile.py -v)
+VERSION=$(shell git describe)
 
 #for the testing purpose
 #requires the vms created and ready
@@ -14,7 +15,7 @@ SNAPSHOT_NAME=booted_ip_sshkey
 all : build_all_packages
 
 compose_pkg_files : copy_www_files 
-		
+
 #moving files to the destination dirs for buidling the package
 copy_www_files : 
 	mkdir -p ./$(HTML_DESTINATION_DIR)
@@ -39,11 +40,14 @@ build_amd64_linux_pkg : copy_www_files build_amd64_linux_binary
 	mkdir -p $@
 	mkdir -p $@/$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)/bin
 	cp -r $(PACKAGE_NAME) $@/
-	./createcontrolfile.py -a amd64 -t control.tmpl -d $@/$(PACKAGE_NAME)/DEBIAN/control
+	source ../env/bin/activate
+	pip install -r requirements.txt 
+	python3 ./createcontrolfile.py -a amd64 -t control.tmpl -d $@/$(PACKAGE_NAME)/DEBIAN/control
 	cp build_amd64_linux_binary/lan-monitor-server $@/$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)/bin/
 	
 	#build the $@ with version $(VERSION)
 	fakeroot dpkg --build $@/$(PACKAGE_NAME) $(PACKAGE_NAME)_$(VERSION)_amd64.deb
+	source deactivate
 
 build_armhf_linux_pkg : copy_www_files build_armhf_linux_binary
 	mkdir -p $@
@@ -66,9 +70,13 @@ build_i386_linux_binary :
 
 build_amd64_linux_binary : 
 	mkdir -p $@; 
+	source ../env/bin/activate
+	pip install -r requirements.txt 
+	VERSION=$(python3 ./createcontrolfile.py -v)
 	cd ../lan-monitor-server; \
 	GOOS=linux GOARCH=amd64 go build -ldflags="-X main.version=$(VERSION)"
 	mv ../lan-monitor-server/lan-monitor-server $@/
+	source deactivate
 
 build_armhf_linux_binary : 
 	mkdir -p $@; 

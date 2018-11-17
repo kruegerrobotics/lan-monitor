@@ -76,7 +76,9 @@ class NetworkElement {
                         httpLink.appendChild(httpLogo);
                         break;
                     default:
-                        break;
+                        let otherPortContainer = document.createElement("div");
+                        otherPortContainer.innerText = this.portList[i];
+                        payload.appendChild(otherPortContainer);
                 }
             }
         }

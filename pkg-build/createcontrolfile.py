@@ -7,7 +7,8 @@ import sys
 import git
 import os
 
-def get_size(start_path = '.'):
+
+def get_size(start_path='.'):
     """calculates the size of a directory with all its containing files  """
     total_size = 0
     for dirpath, dirnames, filenames in os.walk(start_path):
@@ -15,6 +16,7 @@ def get_size(start_path = '.'):
             fp = os.path.join(dirpath, f)
             total_size += os.path.getsize(fp)
     return total_size
+
 
 def main():
     """simple main"""
@@ -31,27 +33,27 @@ def main():
     version = repo.git.describe()[1:]
     if args.version:
         print(version)
-        quit()
+        sys.exit()
 
-    #read available architectures
-    if args.architecture == None:
+    # read available architectures
+    if args.architecture is None:
         print("ERROR: No target architecture specified")
         parser.print_help()
         sys.exit(1)
 
-    #calculate the package size
+    # calculate the package size
     www_folder_size = get_size("../www")
     binary_file_path = "build_" + args.architecture + "_linux_binary/lan-monitor-server"
     binary_file_size = os.path.getsize(binary_file_path)
 
-    #read the template
+    # read the template
     with open(args.template, "r") as file_in:
         src = string.Template(file_in.read())
-        dictionary = {"VERSION":version, "ARCHITECTURE":args.architecture, "SIZE":binary_file_size + www_folder_size}
+        dictionary = {"VERSION":version, "ARCHITECTURE":args.architecture, "SIZE": binary_file_size + www_folder_size}
         result = src.substitute(dictionary)
         with open(args.destination, "w") as file_out:
             file_out.write("{0}".format(result))
 
+
 if __name__ == "__main__":
     main()
-    

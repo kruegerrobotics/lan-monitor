@@ -15,7 +15,7 @@ function initModal() {
             cleanModal();
             modal.style.display = "none";
         }
-    }
+    };
 
     span.onclick = function () {
         cleanModal();
