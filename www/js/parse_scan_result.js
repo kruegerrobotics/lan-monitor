@@ -167,8 +167,8 @@ function scan(xml) {
         let hostname = " "
 
         if (hostNameElement) {
-            hostName = Hostname_Element.getAttribute("name");
-            hostName = filterHostname(Hostname, Name_Filter_Enabled);
+            hostName = hostNameElement.getAttribute("name");
+            hostName = filterHostname(hostName, Name_Filter_Enabled);
         } else {
             hostName = "Unknown";
         }
