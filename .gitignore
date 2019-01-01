@@ -4,7 +4,8 @@ node_modules/
 .temp_scan.xml
 lan-monitor-server/debug
 .vscode/settings.json
-temp_scan.xml
+www/temp_scan.xml
+www/scan.xml
 
 env
 .idea
