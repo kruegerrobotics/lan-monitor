@@ -29,12 +29,7 @@ type Config struct {
 }
 
 //ReadConfig reads the config file
-func ReadConfig(configfile string) Config {
-	_, err := os.Stat(configfile)
-	if err != nil {
-		log.Fatal("Config file is missing: ", configfile)
-	}
-
+func readConfig(configfile string) Config {
 	var config Config
 	if _, err := toml.DecodeFile(configfile, &config); err != nil {
 		log.Fatal(err)
@@ -141,7 +136,7 @@ func main() {
 	var config Config
 	defaultConfigFileLocation := "/etc/lan-monitor.conf"
 	config.HTTPPort = 8080
-	config.NMAPRange = "192.168.1.1/24"
+	config.NMAPRange = "192.168.0.1/24"
 	config.NMAPPorts = "22,80"
 	config.ScanInterval = 120 //seconds
 
@@ -150,10 +145,17 @@ func main() {
 	cmdlineNMAPScanRange := flag.String("range", config.NMAPRange, "The range NMAP should scan e.g. 192.168.1.1/24 it has to be nmap compatible")
 	cmdlineScanInterval := flag.Int("scan-rate", config.ScanInterval, "The interval of the scans in seconds")
 	configFileLocation := flag.String("config-file", defaultConfigFileLocation, "Location of the config file")
+	cmdlinePorts := flag.String("scan-ports", config.NMAPPorts, "The ports that will be scanned")
 	flag.Parse()
 
-	//read the configfile
-	config = ReadConfig(*configFileLocation)
+	//try to read the configfile
+	_, err := os.Stat(*configFileLocation)
+	if err == nil {
+		config = readConfig(*configFileLocation)
+	} else {
+		log.Println("Config file is missing - looked at:", *configFileLocation)
+		log.Println("Reverting to commandline/defaults")
+	}
 
 	//if no range is defined in the config file
 	if config.NMAPRange == "" {
@@ -170,7 +172,12 @@ func main() {
 		config.ScanInterval = *cmdlineScanInterval
 	}
 
-	log.Println("Config - range:", config.NMAPRange, "port:", config.HTTPPort, "interval:", config.ScanInterval, "sec")
+	//if no ports to be scanned are defined
+	if config.NMAPPorts == "" {
+		config.NMAPPorts = *cmdlinePorts
+	}
+
+	log.Println("Config - range:", config.NMAPRange, "webserver port:", config.HTTPPort, "interval:", config.ScanInterval, "sec", "scan-ports", config.NMAPPorts)
 
 	if *displayVersion == true {
 		fmt.Println("Version: " + version)
@@ -179,7 +186,7 @@ func main() {
 
 	//changing working dir
 	log.Println("Changing working dir to: ")
-	err := os.Chdir("../www")
+	err = os.Chdir("../www")
 	if err != nil {
 		log.Fatalln("Unable to switch working dir")
 	}
