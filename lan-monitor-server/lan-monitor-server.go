@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"bytes"
 	"flag"
 	"fmt"
@@ -11,7 +10,6 @@ import (
 	"os"
 	"os/exec"
 	"strconv"
-	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
@@ -84,43 +82,6 @@ func copyScanResult(tempScanFileName, scanResultsFileName string) (int64, error)
 		return -1, err
 	}
 	return n, nil
-}
-
-func pageHandler(w http.ResponseWriter, r *http.Request) {
-	path := r.URL.Path[1:]
-	log.Println("URL path: " + path)
-
-	//in case we have no path refer/redirect to index.html
-	if len(path) == 0 {
-		path = "index.html"
-	}
-
-	f, err := os.Open(path)
-	if err == nil {
-		Reader := bufio.NewReader(f)
-
-		var contentType string
-
-		if strings.HasSuffix(path, "css") {
-			contentType = "text/css"
-		} else if strings.HasSuffix(path, ".html") {
-			contentType = "text/html"
-		} else if strings.HasSuffix(path, ".js") {
-			contentType = "application/javascript"
-		} else if strings.HasSuffix(path, ".png") {
-			contentType = "image/png"
-		} else if strings.HasSuffix(path, ".svg") {
-			contentType = "image/svg+xml"
-		} else {
-			contentType = "text/plain"
-		}
-
-		w.Header().Add("Content Type", contentType)
-		Reader.WriteTo(w)
-	} else {
-		w.WriteHeader(404)
-		fmt.Fprintln(w, "404 - "+http.StatusText(404))
-	}
 }
 
 func main() {
@@ -197,7 +158,9 @@ func main() {
 	//init the scanning routine
 	go callNMAP(config)
 
-	//starting the webserver
-	http.HandleFunc("/", pageHandler)
-	log.Fatal(http.ListenAndServe(":"+strconv.Itoa(config.HTTPPort), nil))
+	//starting and configuring the webserver
+	fs := http.FileServer(http.Dir(workingDir))
+	http.Handle("/", fs)
+	listenAddress := ":" + strconv.Itoa(config.HTTPPort)
+	log.Fatal(http.ListenAndServe(listenAddress, nil))
 }
