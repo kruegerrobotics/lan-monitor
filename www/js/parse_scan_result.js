@@ -74,7 +74,6 @@ ws.onmessage = function (event) {
         //console.log(rrowEntries[e]["address"]["-addr"])
         objs.push(tempobj)
     }
-
     createList()
 }
 
@@ -114,9 +113,6 @@ function createList() {
     computerContainer.appendChild(computerRow)
 }
 
-function removeList() {
-    console.log("removing list")
-}
 
 // function createEntry(name, ip, ports, parentElement) {
 //     let entry = document.createElement("div")
@@ -216,7 +212,36 @@ function createEntry(name, ip, ports, parentElement) {
 
     let bottom = document.createElement("div")
     bottom.className = "col-md-12 bg-white"
-    bottom.innerHTML = ports
+    //bottom.innerHTML = ports
+
+    //loop through the ports
+    for (let p in ports) {
+        switch (ports[p]) {
+            case "22":
+                let s = document.createElement("img")
+                s.className = "img-fluid"
+                s.src="img/SSH_logo.png"
+                s.style.margin = "5px"
+                s.style.height = "30px"
+                bottom.appendChild(s)
+                break
+            case "80":
+                let h = document.createElement("img")
+                h.className = "img-fluid"
+                h.src = "img/HTTP_logo.png"
+                h.style.margin = "5px"
+                h.style.height = "30px"
+                let a = document.createElement("a")
+                a.href = "http://" + ip
+                a.target = "_blank"
+                a.appendChild(h)
+                bottom.appendChild(a)
+                break
+            default:
+                break
+        }
+    }
+
     bottom.style.borderBottomLeftRadius = borderRadius
     bottom.style.borderBottomRightRadius = borderRadius
 
