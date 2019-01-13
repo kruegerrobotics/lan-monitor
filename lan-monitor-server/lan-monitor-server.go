@@ -189,13 +189,6 @@ func main() {
 		return
 	}
 
-	//changing working dir
-	log.Println("Changing working dir to: ")
-	err = os.Chdir("../www")
-	if err != nil {
-		log.Fatalln("Unable to switch working dir")
-	}
-
 	workingDir, _ := os.Getwd()
 	log.Println("Dir:" + workingDir)
 
