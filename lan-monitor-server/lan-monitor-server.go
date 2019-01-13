@@ -50,9 +50,7 @@ func echo(conn *websocket.Conn) {
 			log.Println("Error reading json.", err)
 			break
 		}
-		log.Println("sending message")
 		lock.RLock()
-		log.Println("locked")
 		if nmapJSON != nil {
 			err := conn.WriteMessage(1, nmapJSON.Bytes())
 			if err != nil {
@@ -61,25 +59,6 @@ func echo(conn *websocket.Conn) {
 			}
 		}
 		lock.RUnlock()
-		log.Println("message sent")
-
-		// err := conn.ReadJSON(&m)
-		// if err != nil {
-		// 	log.Println("Error reading json.", err)
-		// 	break
-		// }
-
-		// log.Printf("Got message: %#v\n", m)
-
-		// if err = conn.WriteJSON(m); err != nil {
-		// 	log.Println(err)
-		// 	break
-		// }
-
-		// //broadcast to all
-		// for c := range cons {
-		// 	c.WriteMessage(1, []byte("Broadcast"))
-		// }
 	}
 	delete(cons, conn)
 	conn.Close()
@@ -99,8 +78,8 @@ func callNMAP(conf Config) {
 	var counter = 1
 	var scanResultsFileName = "scan.xml"
 
-	cmd := exec.Command("nmap", "-p", conf.NMAPPorts, "-oX", scanResultsFileName, conf.NMAPRange)
 	for {
+		cmd := exec.Command("nmap", "-p", conf.NMAPPorts, "-oX", scanResultsFileName, conf.NMAPRange)
 		log.Println("Init NMAP scan no:", counter)
 		var out bytes.Buffer
 		cmd.Stdout = &out
@@ -131,7 +110,7 @@ func callNMAP(conf Config) {
 }
 
 func wsHandler(w http.ResponseWriter, r *http.Request) {
-	log.Println("Ws request")
+	log.Println("Ws request from:", r.Header.Get("Origin"))
 	// log.Println("accepted from: http://" + r.Host)
 	// if r.Header.Get("Origin") != "http://"+r.Host {
 	// 	http.Error(w, "Origin not allowed", 403)
@@ -146,7 +125,6 @@ func wsHandler(w http.ResponseWriter, r *http.Request) {
 
 	//add the connection to the pool for broadcast
 	cons[conn] = true
-	log.Println("New length:", len(cons))
 	go echo(conn)
 }
 
