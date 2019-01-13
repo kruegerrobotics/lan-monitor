@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.40 scan initiated Sun Jan 13 23:23:35 2019 as: nmap -p 22,80 -oX scan.xml 192.168.0.1/24 -->
+<nmaprun scanner="nmap" args="nmap -p 22,80 -oX scan.xml 192.168.0.1/24" start="1547418215" startstr="Sun Jan 13 23:23:35 2019" version="7.40" xmloutputversion="1.04">
+<scaninfo type="connect" protocol="tcp" numservices="2" services="22,80"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1547418215" endtime="1547418218"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.0.1" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+</ports>
+<times srtt="1259" rttvar="3017" to="100000"/>
+</host>
+<host starttime="1547418215" endtime="1547418218"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.0.2" addrtype="ipv4"/>
+<hostnames>
+<hostname name="dnsserver.tk.home" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+</ports>
+<times srtt="2805" rttvar="3704" to="100000"/>
+</host>
+<host starttime="1547418215" endtime="1547418218"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.0.166" addrtype="ipv4"/>
+<hostnames>
+<hostname name="think-deb.tk.home" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+</ports>
+<times srtt="175" rttvar="2834" to="100000"/>
+</host>
+<host starttime="1547418215" endtime="1547418220"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.0.239" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+</ports>
+<times srtt="3849" rttvar="4239" to="100000"/>
+</host>
+<runstats><finished time="1547418220" timestr="Sun Jan 13 23:23:40 2019" elapsed="4.39" summary="Nmap done at Sun Jan 13 23:23:40 2019; 256 IP addresses (4 hosts up) scanned in 4.39 seconds" exit="success"/><hosts up="4" down="252" total="256"/>
+</runstats>
+</nmaprun>
