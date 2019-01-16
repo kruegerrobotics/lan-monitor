@@ -2,8 +2,10 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -12,7 +14,6 @@ import (
 	"sync"
 	"time"
 
-	"github.com/BurntSushi/toml"
 	xj "github.com/basgys/goxml2json"
 	"github.com/gorilla/websocket"
 )
@@ -67,9 +68,17 @@ func echo(conn *websocket.Conn) {
 //ReadConfig reads the config file
 func readConfig(configfile string) Config {
 	var config Config
-	if _, err := toml.DecodeFile(configfile, &config); err != nil {
-		log.Fatal(err)
+	data, err := ioutil.ReadFile(configfile)
+	if err != nil {
+		log.Println("Error opening for JSON parsing - reverting to defaults")
 	}
+
+	err = json.Unmarshal(data, &config)
+	if err != nil {
+		log.Println("Error parsing json config:", err)
+		log.Println("Continuing with defaults", err)
+	}
+
 	return config
 }
 
@@ -139,13 +148,14 @@ func main() {
 
 	//defaults
 	var config Config
-	defaultConfigFileLocation := "/etc/lan-monitor.conf"
+	defaultConfigFileLocation := "/etc/lan-monitor.json"
 	config.HTTPPort = 8080
 	config.NMAPRange = "192.168.0.1/24"
 	config.NMAPPorts = "22,80"
 	config.ScanInterval = 120 //seconds
 
 	displayVersion := flag.Bool("version", false, "Prints the version number")
+	createExampleConfig := flag.Bool("config", false, "Writes the lan-monitor.json to local dir as example")
 	cmdlineHTTPPort := flag.Int("port", config.HTTPPort, "HTTP port for the webserver")
 	cmdlineNMAPScanRange := flag.String("range", config.NMAPRange, "The range NMAP should scan e.g. 192.168.1.1/24 it has to be nmap compatible")
 	cmdlineScanInterval := flag.Int("scan-rate", config.ScanInterval, "The interval of the scans in seconds")
@@ -186,6 +196,17 @@ func main() {
 
 	if *displayVersion == true {
 		fmt.Println("Version: " + version)
+		return
+	}
+
+	if *createExampleConfig == true {
+		workingDir, _ := os.Getwd()
+		fmt.Println("Config in JSON format written to:", workingDir)
+		configJSON, _ := json.Marshal(config)
+		err := ioutil.WriteFile("lan-monitor.json", configJSON, 0644)
+		if err != nil {
+			fmt.Println("Error writing demo config file")
+		}
 		return
 	}
 
