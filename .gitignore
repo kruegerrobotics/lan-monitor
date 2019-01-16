@@ -2,11 +2,12 @@
 node_modules/
 .vscode/launch.json
 .temp_scan.xml
-lan-monitor-server/scan.xml
-lan-monitor-server/debug
 .vscode/settings.json
 www/temp_scan.xml
 www/scan.xml
+lan-monitor-server/lan-monitor-config.json
+lan-monitor-server/scan.xml
+lan-monitor-server/debug
 
 env
 .idea
