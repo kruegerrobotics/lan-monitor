@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 """ Helper program to create the control file inserting automatically the version"""
 
 import string
