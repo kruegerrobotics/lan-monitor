@@ -22,3 +22,4 @@ pkg-build/build_i386_linux_binary
 pkg-build/build_i386_linux_pkg
 pkg-build/*.deb
 lan-monitor-server/scan.xml
+lan-monitor-server/opt/*
