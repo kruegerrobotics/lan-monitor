@@ -20,7 +20,6 @@ compose_pkg_files : copy_www_files
 copy_www_files : 
 	mkdir -p ./$(HTML_DESTINATION_DIR)
 	cp ../www/index.html ./$(HTML_DESTINATION_DIR)/
-	cp -r ../www/css ./$(HTML_DESTINATION_DIR)/
 	cp -r ../www/img ./$(HTML_DESTINATION_DIR)/
 	cp -r ../www/js ./$(HTML_DESTINATION_DIR)/
 	cp -r ../www/lib ./$(HTML_DESTINATION_DIR)/
