@@ -1,7 +1,7 @@
 //globals
 let wsServerProdcuction = "ws://" + location.host + "/ws"
 let wsServerDebug = "ws://think-deb:8080/ws"
-let websocketServer = wsServerDebug
+let websocketServer = wsServerProdcuction
 let ws
 let networkElements
 let networkElementsOld
@@ -59,7 +59,11 @@ ws.onmessage = function (event) {
     for (let e in rowEntries) {
         //console.log(rowEntries[e])
         var tempobj = {}
-        tempobj.ip = rowEntries[e]["address"]["-addr"]
+        if (Array.isArray(rowEntries[e]["address"])) {
+            tempobj.ip = rowEntries[e]["address"][0]["-addr"]
+        } else {
+            tempobj.ip = rowEntries[e]["address"]["-addr"]
+        }
         tempobj.online = true
         if (rowEntries[e]["hostnames"]) {
             tempobj.name = rowEntries[e]["hostnames"]["hostname"]["-name"]
@@ -96,11 +100,11 @@ ws.onmessage = function (event) {
     for (let i = 0; i < objs.length; i++) {
         act.push(objs[i].ip);
     }
-   
+
     goneOffline = old.filter(function (v) {
         return !act.includes(v);
     })
-   
+
     for (let j = 0; j < goneOffline.length; j++) {
         for (let i = 0; i < oldObjs.length; i++) {
             if (oldObjs[i].ip === goneOffline[j]) {
