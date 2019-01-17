@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"strconv"
 	"sync"
 	"time"
@@ -217,7 +218,7 @@ func main() {
 	go callNMAP(config)
 
 	//starting and configuring the webserver
-	fs := http.FileServer(http.Dir(workingDir))
+	fs := http.FileServer(http.Dir(filepath.Dir(workingDir) + "/www"))
 	http.HandleFunc("/ws", wsHandler)
 	http.Handle("/", fs)
 	listenAddress := ":" + strconv.Itoa(config.HTTPPort)
