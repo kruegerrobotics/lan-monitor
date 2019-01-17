@@ -9,7 +9,7 @@ VERSION=$(shell git describe)
 #for the testing purpose
 #requires the vms created and ready
 VM_NAME_AMD64=test-amd64
-SNAPSHOT_NAME=booted_ip_sshkey
+SNAPSHOT_NAME=booted_ip_sshkey_upgr1
 
 #the default target build all debian packages 
 all : build_all_packages
@@ -23,6 +23,7 @@ copy_www_files :
 	cp -r ../www/css ./$(HTML_DESTINATION_DIR)/
 	cp -r ../www/img ./$(HTML_DESTINATION_DIR)/
 	cp -r ../www/js ./$(HTML_DESTINATION_DIR)/
+	cp -r ../www/lib ./$(HTML_DESTINATION_DIR)/
 
 build_all_packages : build_i386_linux_pkg build_amd64_linux_pkg build_armhf_linux_pkg
 
@@ -40,14 +41,12 @@ build_amd64_linux_pkg : copy_www_files build_amd64_linux_binary
 	mkdir -p $@
 	mkdir -p $@/$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)/bin
 	cp -r $(PACKAGE_NAME) $@/
-	source ../env/bin/activate
-	pip install -r requirements.txt 
-	python3 ./createcontrolfile.py -a amd64 -t control.tmpl -d $@/$(PACKAGE_NAME)/DEBIAN/control
+	./createcontrolfile.py -a amd64 -t control.tmpl -d $@/$(PACKAGE_NAME)/DEBIAN/control
 	cp build_amd64_linux_binary/lan-monitor-server $@/$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)/bin/
 	
 	#build the $@ with version $(VERSION)
 	fakeroot dpkg --build $@/$(PACKAGE_NAME) $(PACKAGE_NAME)_$(VERSION)_amd64.deb
-	source deactivate
+	#source deactivate
 
 build_armhf_linux_pkg : copy_www_files build_armhf_linux_binary
 	mkdir -p $@
@@ -70,14 +69,10 @@ build_i386_linux_binary :
 
 build_amd64_linux_binary : 
 	mkdir -p $@; 
-	source ../env/bin/activate
-	pip install -r requirements.txt 
-	VERSION=$(python3 ./createcontrolfile.py -v)
 	cd ../lan-monitor-server; \
 	GOOS=linux GOARCH=amd64 go build -ldflags="-X main.version=$(VERSION)"
 	mv ../lan-monitor-server/lan-monitor-server $@/
-	source deactivate
-
+	
 build_armhf_linux_binary : 
 	mkdir -p $@; 
 	cd ../lan-monitor-server; \
@@ -95,9 +90,12 @@ test_amd64_vbox : build_amd64_linux_pkg
 
 	#power on the vm
 	VBoxManage startvm $(VM_NAME_AMD64)
+	
+	#give some more time
+	sleep 2
 
 	scp $(PACKAGE_NAME)_$(VERSION)_amd64.deb root@192.168.0.175:~/
-	ssh root@192.168.0.175 apt-get install nmap -y
+	ssh root@192.168.0.175 apt install nmap -y
 	ssh root@192.168.0.175 dpkg -i $(PACKAGE_NAME)_$(VERSION)_amd64.deb
 	ssh root@192.168.0.175 systemctl status lan-monitor-server
 
