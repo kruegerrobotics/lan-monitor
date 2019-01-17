@@ -1,0 +1,6 @@
+{
+    "NMAPRange": "192.168.0.1/24",
+    "NMAPPorts": "22,80",
+    "HTTPPort": 8080,
+    "ScanInterval": 120
+}
