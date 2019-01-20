@@ -12,7 +12,7 @@ VM_NAME_AMD64=test-amd64
 SNAPSHOT_NAME=booted_ip_sshkey_upgr1
 
 #the default target build all debian packages 
-all : build_all_packages
+all : build_all_packages build_all_stand_alones
 
 compose_pkg_files : copy_www_files 
 
@@ -24,8 +24,34 @@ copy_www_files :
 	cp -r ../www/js ./$(HTML_DESTINATION_DIR)/
 	cp -r ../www/lib ./$(HTML_DESTINATION_DIR)/
 
+
+build_all_stand_alones : lan-monitor_i386_linux_std_alone lan-monitor_amd64_linux_std_alone lan-monitor_armhf_linux_std_alone
+
 build_all_packages : build_i386_linux_pkg build_amd64_linux_pkg build_armhf_linux_pkg
 
+#build stand alones (executable and webdir)
+lan-monitor_i386_linux_std_alone : copy_www_files build_i386_linux_binary 
+	mkdir -p $@/www
+	mkdir -p $@/bin
+	cp build_i386_linux_binary/* $@/bin/
+	cp -r $(HTML_DESTINATION_DIR)/* $@/www/
+	tar -czvf $@.tar.gz  $@
+
+lan-monitor_amd64_linux_std_alone : copy_www_files build_amd64_linux_binary
+	mkdir -p $@/www
+	mkdir -p $@/bin
+	cp build_amd64_linux_binary/* $@/bin/
+	cp -r $(HTML_DESTINATION_DIR)/* $@/www/
+	tar -czvf $@.tar.gz  $@
+
+lan-monitor_armhf_linux_std_alone : copy_www_files build_armhf_linux_binary
+	mkdir -p $@/www
+	mkdir -p $@/bin
+	cp build_armhf_linux_binary/* $@/bin/
+	cp -r $(HTML_DESTINATION_DIR)/* $@/www/
+	tar -czvf $@.tar.gz  $@
+
+#build the debian packages
 build_i386_linux_pkg : copy_www_files build_i386_linux_binary
 	mkdir -p $@
 	mkdir -p $@/$(PACKAGE_NAME)/opt/$(PACKAGE_NAME)/bin
@@ -99,7 +125,12 @@ test_amd64_vbox : build_amd64_linux_pkg
 	ssh root@192.168.0.175 systemctl status lan-monitor-server
 
 #cleanup
-clean : clean_binary_builds clean_package_builds clean_packages clean_package_files
+clean : clean_binary_builds clean_package_builds clean_packages clean_package_files clean_stand_alone_builds clean_tarballs
+
+clean_stand_alone_builds :
+	rm -rf lan-monitor_i386_linux_std_alone
+	rm -rf lan-monitor_amd64_linux_std_alone
+	rm -rf lan-monitor_armhf_linux_std_alone
 
 clean_binary_builds : 
 	rm -rf build_armhf_linux_binary
@@ -116,3 +147,6 @@ clean_package_files :
 
 clean_packages : 
 	rm -rf *.deb
+
+clean_tarballs :
+	rm -rf *.tar.gz

@@ -10,7 +10,7 @@ let objs = []
 let oldObjs = []
 
 //some stuff for dev&debug
-let dummyInjected = false
+let dummyInjected = true
 let dummy = {}
 dummy.ip = "192.168.0.111"
 dummy.name = "dummy"
