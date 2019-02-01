@@ -24,3 +24,4 @@ pkg-build/*.deb
 lan-monitor-server/scan.xml
 pkg-build/lan-monitor/opt/*
 lan-monitor-server/scan.xml
+/package-lock.json
