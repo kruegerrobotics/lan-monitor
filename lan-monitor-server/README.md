@@ -8,6 +8,6 @@ This file gives additional explanations to the golang code
 
 "github.com/gorilla/websocket"
 
-### directly transform XML file into JSON
+### directly transform XML file into JSON ###
 
 xj "github.com/basgys/goxml2json"
