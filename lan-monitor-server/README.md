@@ -4,8 +4,10 @@ This file gives additional explanations to the golang code
 
 ## Additional depencies ##
 
-### Parsing the ini/property file ###
+### Websocket implementation ###
 
-This 3rd party dependency is used
+"github.com/gorilla/websocket"
 
-go get github.com/BurntSushi/toml
+### directly transform XML file into JSON ###
+
+xj "github.com/basgys/goxml2json"
