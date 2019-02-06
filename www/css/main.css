@@ -86,7 +86,7 @@ body {
   flex-grow: 10;
   display: grid;
   grid-template-columns: 30% 15% 25% 25% 5%;
-  grid-template-rows: minmax(2em, 10%);
+  grid-template-rows: 2em;
 }
 
 @media screen and (max-width: 720px) {

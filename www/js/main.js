@@ -1,1 +1,1 @@
-document.addEventListener("DOMContentLoaded",console.log("linked"),!1);
+document.addEventListener("DOMContentLoaded",()=>{});

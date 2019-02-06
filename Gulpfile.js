@@ -2,7 +2,7 @@ const gulp           = require('gulp'),
       browsersync    = require('browser-sync').create(),
       sass           = require('gulp-sass'),
       rename         = require("gulp-rename"),
-      uglify         = require('gulp-uglify'),
+      terser         = require('gulp-terser'),
       fs             = require('fs'),
       dir            = {src: 'ui-generator/', dest: 'www/'};
 
@@ -31,10 +31,11 @@ let css = () => {
 let js = () => {
     return gulp
         .src(dir.src + 'js/*.js')
-        .pipe(uglify())
+        .pipe(terser())
         .pipe(gulp.dest(dir.dest + "js"))
         .pipe(browsersync.stream());
 };
+
 
 // Copy file to destination folder
 let copyFile = pathSrc => {
