@@ -42,12 +42,11 @@ body {
     font-size: 1em;
   }
 }
-#scan-results {
+.results-table {
   font-size: 1em;
   text-overflow: ellipsis;
-  flex-grow: 10;
   display: grid;
-  grid-template-columns: 30% 15% 25% 25% 5%;
+  grid-template-columns: 30% 10% 25% 30% 5%;
   grid-template-rows: 2em;
 
   @media screen and (max-width: $break-mid) {
@@ -56,14 +55,12 @@ body {
   @media screen and (max-width: $break-small) {
     font-size: 0.7em;
   }
+
   li {
     display: flex;
     padding: 7px;
     align-items: center;
     border-bottom: 1px solid $border;
-    &:nth-of-type(-n +5) {
-      border-bottom: 3px solid $border;
-    }
   }
   .center {
     padding: 0 10px;
@@ -98,3 +95,8 @@ body {
     background: #636e72;
   }
 }
+
+.table-header li{
+  border-bottom: 3px solid $border;
+}
+

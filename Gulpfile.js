@@ -4,6 +4,7 @@ const gulp           = require('gulp'),
       rename         = require("gulp-rename"),
       terser         = require('gulp-terser'),
       fs             = require('fs'),
+      sourcemaps     = require('gulp-sourcemaps'),
       dir            = {src: 'ui-generator/', dest: 'www/'};
 
 // Settings for live reload
@@ -31,7 +32,9 @@ let css = () => {
 let js = () => {
     return gulp
         .src(dir.src + 'js/*.js')
+        .pipe(sourcemaps.init())
         .pipe(terser())
+        .pipe(sourcemaps.write())
         .pipe(gulp.dest(dir.dest + "js"))
         .pipe(browsersync.stream());
 };
