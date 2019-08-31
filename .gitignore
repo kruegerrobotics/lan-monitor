@@ -25,3 +25,4 @@ lan-monitor-server/scan.xml
 pkg-build/lan-monitor/opt/*
 lan-monitor-server/scan.xml
 /package-lock.json
+dockerimages/lan-monitor_v2.0.1_amd64.deb

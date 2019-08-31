@@ -30,10 +30,11 @@ var lock = sync.RWMutex{}
 
 var nmapJSON *bytes.Buffer
 
-//just for development
+//msg the come from the website/browser and can command this server e.g. changing the NMAP command
 type msg struct {
-	Command string
-	Num     int
+	Command    string
+	Parameters string
+	Num        int
 }
 
 //Config data struct to read the config file
@@ -42,6 +43,11 @@ type Config struct {
 	NMAPPorts    string //comma separated
 	HTTPPort     int
 	ScanInterval int //seconds
+}
+
+//ServerStatus summarizes the status of the server
+type ServerStatus struct {
+	ScanInProgress bool
 }
 
 func echo(conn *websocket.Conn) {
@@ -83,6 +89,7 @@ func readConfig(configfile string) Config {
 	return config
 }
 
+//invokes NMAP
 func callNMAP(conf Config) {
 	log.Println("Starting nmap caller")
 	var counter = 1
@@ -212,13 +219,14 @@ func main() {
 	}
 
 	workingDir, _ := os.Getwd()
-	log.Println("Dir:" + workingDir)
+	log.Println("Working Dir:" + workingDir)
 
+	httpDir := filepath.Dir(workingDir) + "/www"
 	//init the scanning routine
 	go callNMAP(config)
 
 	//starting and configuring the webserver
-	fs := http.FileServer(http.Dir(filepath.Dir(workingDir) + "/www"))
+	fs := http.FileServer(http.Dir(httpDir))
 	http.HandleFunc("/ws", wsHandler)
 	http.Handle("/", fs)
 	listenAddress := ":" + strconv.Itoa(config.HTTPPort)
