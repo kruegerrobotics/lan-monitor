@@ -1,0 +1,151 @@
+html, body, div, span, input, button, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  font-size: 100%;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+ol, ul, li {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+a:active {
+  outline: none;
+  border: none;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: #2d3436;
+  font-family: 'Lato', sans-serif;
+  display: grid;
+  grid-template-columns: 50px auto;
+}
+
+#sidebar {
+  display: flex;
+  justify-content: center;
+  background: #636e72;
+}
+
+#sidebar h4 {
+  padding: 15px 0;
+  font-size: 1.4em;
+  color: #2d3436;
+  text-transform: uppercase;
+}
+
+#content-container {
+  color: #eeeeee;
+  margin: 10px 20px;
+}
+
+#content-container h1 {
+  font-size: 2em;
+  font-weight: 300;
+  border-bottom: 2px solid #636e72;
+  margin-bottom: 0;
+}
+
+#content-container h2 {
+  margin-top: 5px;
+  padding-left: 7px;
+  font-size: 0.75em;
+  font-weight: 300;
+}
+
+#content-container h3 {
+  font-variant: small-caps;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+.results-table {
+  font-size: 1em;
+  text-overflow: ellipsis;
+  display: grid;
+  grid-template-columns: 30% 10% 25% 30% 5%;
+  grid-template-rows: 2em;
+}
+
+@media screen and (max-width: 720px) {
+  .results-table {
+    font-size: 0.85em;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .results-table {
+    font-size: 0.7em;
+  }
+}
+
+.results-table li {
+  display: flex;
+  padding: 7px;
+  align-items: center;
+  border-bottom: 1px solid #636e72;
+}
+
+.results-table .center {
+  padding: 0 10px;
+  justify-content: center;
+}
+
+.results-table .header-end {
+  grid-column: 4 / span 5;
+}
+
+.results-table .arrow {
+  display: flex;
+  justify-content: center;
+}
+
+.results-table .arrow span {
+  width: 0;
+  height: 0;
+  border-right: 10px solid #eeeeee;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.results-table .info-view {
+  grid-column: 1 / span 5;
+  display: none;
+}
+
+.results-table .online {
+  background: #00b894;
+}
+
+.results-table .no-service {
+  background: #e17055;
+}
+
+.results-table .offline {
+  background: #636e72;
+}
+
+.table-header li {
+  border-bottom: 3px solid #636e72;
+}
