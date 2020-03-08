@@ -158,7 +158,7 @@ func main() {
 	var config Config
 	defaultConfigFileLocation := "/etc/lan-monitor.json"
 	config.HTTPPort = 8080
-	config.NMAPRange = "192.168.0.1/24"
+	config.NMAPRange = "192.168.10.1/24"
 	config.NMAPPorts = "22,80"
 	config.ScanInterval = 120 //seconds
 
