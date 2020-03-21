@@ -47,10 +47,14 @@ let trackResults = data => {
         console.log(key)
         let nameNode = document.createElement("li")
         let nameTextNode = document.createTextNode(key)
-        
-        
         nameNode.appendChild(nameTextNode)
-        //document.getElementById("scan-results").appendChild(nameNode)
+
+        let statusNode = document.createElement("li")
+        let statusTextNode = document.createTextNode(key)
+        statusNode.appendChild(statusTextNode)
+
+
+
     }
 
     for (key of Object.keys(newResults.hosts)) {

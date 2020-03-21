@@ -29,5 +29,5 @@ lan-monitor-server/scan.xml
 www/temp_scan.xml
 www/scan.xml
 
-
+#docker image contents (should be generate fresh)
 dockerimages/lan-monitor_v2.0.1_amd64.deb
