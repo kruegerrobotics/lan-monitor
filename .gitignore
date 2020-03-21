@@ -3,8 +3,7 @@ node_modules/
 .vscode/launch.json
 .temp_scan.xml
 .vscode/settings.json
-www/temp_scan.xml
-www/scan.xml
+
 
 
 lan-monitor-server/debug
@@ -13,17 +12,22 @@ env
 .idea
 *.iml
 lan-monitor-server/lan-monitor-config.json
-lan-monitor-server/scan.xml
+
+# content from the automatic build for debian packages
 pkg-build/build_amd64_linux_binary
 pkg-build/build_amd64_linux_pkg
 pkg-build/build_armhf_linux_binary
 pkg-build/build_armhf_linux_pkg
 pkg-build/build_i386_linux_binary
 pkg-build/build_i386_linux_pkg
-pkg-build/*.deb
-lan-monitor-server/scan.xml
 pkg-build/lan-monitor/opt/*
+pkg-build/*.deb
+
+
+#generated scan files
 lan-monitor-server/scan.xml
-/package-lock.json
+www/temp_scan.xml
+www/scan.xml
+
+
 dockerimages/lan-monitor_v2.0.1_amd64.deb
-lan-monitor-server/scan.xml
