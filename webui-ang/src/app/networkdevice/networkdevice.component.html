@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row class="title">
+        <span>{{lastScanVar}}</span>
+       
+        <button mat-button (click)="onDeleteBtn()">
+            <mat-icon>delete_outline</mat-icon>
+        </button>
+        <span class="flexExpand"></span>
+        <button mat-button [matMenuTriggerFor]="appMenu"> 
+            <mat-icon>settings_outline</mat-icon>
+        </button>
+    </mat-toolbar-row>
+    <mat-toolbar-row class="subtitle">
+        <span> Args: {{scanArgsVar}}</span>
+    </mat-toolbar-row>
+
+    <!-- <button mat-button (click)="sidenav.open ()" ><mat-icon>menu</mat-icon></button> -->
+
+
+</mat-toolbar>
+<mat-menu #appMenu="matMenu">
+    <p>In future here the scan can be configured</p>
+    <button mat-menu-item> Settings </button>
+    <button mat-menu-item> Help </button>
+</mat-menu>
+
+<table mat-table [dataSource]="devices" class="mat-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="hostname">
+        <th mat-header-cell *matHeaderCellDef> HOST </th>
+        <td mat-cell *matCellDef="let element">
+            <div>{{element.hostname == 'unknown' ? element.ipaddress : element.hostname}}</div>
+            <div class="addtional-info">{{element.hostname == 'unknown' ? "" : element.ipaddress}}</div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="online">
+        <th mat-header-cell *matHeaderCellDef> STATUS </th>
+        <td mat-cell *matCellDef="let element">
+            <div class="online-state"
+                [ngStyle]="{'background-color': (element.online == true) ? '#00b894' : '#e17055'}">
+                {{element.online == true ? "online" : "offline"}} </div>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ports">
+        <th mat-header-cell *matHeaderCellDef> PORTS </th>
+        <td mat-cell *matCellDef="let element"> {{(element.ports.length > 0) ?  element.ports : "-"}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

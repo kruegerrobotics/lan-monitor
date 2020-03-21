@@ -31,3 +31,53 @@ www/scan.xml
 
 #docker image contents (should be generate fresh)
 dockerimages/lan-monitor_v2.0.1_amd64.deb
+
+
+### Files for the UI component based on angular
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+webui-ang/dist
+webui-ang/tmp
+webui-ang/out-tsc
+# Only exists if Bazel was run
+webui-ang/bazel-out
+
+# dependencies
+webui-ang/node_modules
+
+# profiling files
+webui-ang/chrome-profiler-events*.json
+webui-ang/speed-measure-plugin*.json
+
+# IDEs and editors
+webui-ang/.idea
+webui-ang/.project
+webui-ang/.classpath
+webui-ang/.c9/
+webui-ang/*.launch
+webui-ang/.settings/
+webui-ang/*.sublime-workspace
+
+# IDE - VSCode
+webui-ang/.vscode/*
+webui-ang/!.vscode/settings.json
+webui-ang/!.vscode/tasks.json
+webui-ang/!.vscode/launch.json
+webui-ang/!.vscode/extensions.json
+webui-ang/.history/*
+
+# misc
+webui-ang/.sass-cache
+webui-ang/connect.lock
+webui-ang/coverage
+webui-ang/libpeerconnection.log
+webui-ang/npm-debug.log
+webui-ang/yarn-error.log
+webui-ang/testem.log
+webui-ang/typings
+
+# System Files
+webui-ang/.DS_Store
+webui-ang/Thumbs.db
