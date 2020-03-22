@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Networkdevice } from '../networkdevice';
 import { DEVICES } from '../mock-devices';
-import { MatTable } from '@angular/material';
+import { MatTable, MatDialog, MatDialogConfig } from '@angular/material';
+import { ConfigDialogComponent } from '../config-dialog/config-dialog.component'
+import { NmapArgDataShareService, NmapArgs } from '../nmap-arg-data-share.service'
 
 @Component({
   selector: 'app-networkdevice',
@@ -12,29 +14,36 @@ export class NetworkdeviceComponent implements OnInit {
 
   devices = DEVICES
   counter = 5
-  lastScanVar: String = "scanning ..."
-  scanArgsVar: String = "scanning ..."
+  lastScanVar: String = "retrieving data ..."
+  scanArgsVar: String = "retrieving data ..."
+  ws: WebSocket
+
+  scanInfo: NmapArgs = new NmapArgs()
 
   displayedColumns: string[] = ['hostname', 'online', 'ports'];
 
   @ViewChild(MatTable, { static: false }) table: MatTable<any>;
 
-  constructor() { }
+  constructor(private dialog: MatDialog, private nmapArgsService: NmapArgDataShareService) {
+  }
 
   ngOnInit() {
-    //console.log(this.devices)
-    let ws = new WebSocket("ws://think-deb:8080/ws")
+    //websocket (consider using a service here)
+    this.ws = new WebSocket("ws://think-deb:8080/ws")
 
-    ws.onopen = function (event) {
-      let msg = { Commmand: "request" }
-      ws.send(JSON.stringify(msg))
+    this.ws.onopen = (event) => {
+      let msg = { Command: "request" }
+      this.ws.send(JSON.stringify(msg))
     }
 
-    ws.onerror = this.onWSError.bind(this)
+    this.ws.onerror = this.onWSError.bind(this)
 
-    ws.onclose = this.onWSClose.bind(this)
+    this.ws.onclose = this.onWSClose.bind(this)
 
-    ws.onmessage = this.onWSMessage.bind(this)
+    this.ws.onmessage = this.onWSMessage.bind(this)
+
+    //service to exchange data with the config dialog
+    this.nmapArgsService.sharedMessage.subscribe(message => this.scanInfo = message)
   }
 
   onWSMessage(event) {
@@ -43,13 +52,18 @@ export class NetworkdeviceComponent implements OnInit {
     this.scanArgsVar = "Args: " + data["nmaprun"]["-args"]
     this.lastScanVar = "Lastest scan: " + data["nmaprun"]["-startstr"]
 
+    this.parseArgs(data["nmaprun"]["-args"])
+
+    //store this in the config dialog since it might have been changes from another location
+    this.nmapArgsService.changeMessage(this.scanInfo)
+
+    //walk through the data
     let hosts = data["nmaprun"]["host"]
-    //console.log(args)
 
     //make everything offline since it will be refreshed soon
     this.devices.map(a => a.online = false)
 
-    // console.log(hosts)
+    //loop through the scanned items
     hosts.forEach((host) => {
       let tempObj = <Networkdevice>{}
       tempObj.ports = []
@@ -110,9 +124,6 @@ export class NetworkdeviceComponent implements OnInit {
 
     //update html
     this.table.renderRows()
-
-
-
   }
 
   onWSClose() {
@@ -125,15 +136,22 @@ export class NetworkdeviceComponent implements OnInit {
     this.activateErrorState()
   }
 
-  onDeleteBtn(){
-     this.devices.length = 0
+  onDeleteBtn() {
+    this.devices.length = 0
     this.table.renderRows()
   }
 
-  activateErrorState(){
+  onSubnetBtn() {
+    console.log("Subnet")
+  }
+
+  activateErrorState() {
     this.lastScanVar = "ERROR connecting to server"
     this.scanArgsVar = "Refresh browser / check server"
+    this.devices.length = 0;
+    this.table.renderRows()
   }
+
 
   c() {
     this.devices.push({ hostname: "computer" + this.counter, ipaddress: "192.168.1." + this.counter, online: false, ports: [123] })
@@ -141,6 +159,38 @@ export class NetworkdeviceComponent implements OnInit {
     this.devices.forEach((e) => {
       e.ports.length
     })
+  }
+
+  openDialog() {
+
+    const dialogConfig = new MatDialogConfig()
+
+    dialogConfig.disableClose = true
+    dialogConfig.autoFocus = true
+    const dialogRef = this.dialog.open(ConfigDialogComponent, dialogConfig)
+
+    dialogRef.afterClosed().subscribe(
+      data => {
+        if (data) {
+          //send the command to the websocket
+          //use the parameters per input
+          //(the server will add automatically the required field for storing as xml)
+          let msg = {
+            Command: "configure",
+            Parameters: data.parameters,
+            Range : data.ipRange
+          }
+          this.ws.send(JSON.stringify(msg))
+        }
+      })
+
+  }
+
+  parseArgs(nmapArgs: String) {
+    const searchExp: String = "-oX scan.xml"
+    let index = nmapArgs.search("-oX scan.xml");
+    this.scanInfo.parameters = nmapArgs.slice(5, index-1)
+    this.scanInfo.ipRange = nmapArgs.slice(searchExp.length + index + 1, nmapArgs.length)
   }
 }
 

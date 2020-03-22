@@ -1,17 +1,18 @@
 .mat-toolbar.mat-primary {
-    background:#636e72;
+    background: #636e72;
 }
 
 .flexExpand {
     flex: 1 1 auto;
 }
 
-.title{
-    padding-top : 16px;
+.title {
+    padding-top: 16px;
     padding-bottom: px;
     /* line-height: normal; */
     height: auto;
 }
+
 .subtitle {
     font-size: 10px;
     height: auto;
@@ -33,21 +34,19 @@ table {
 th.mat-header-cell {
     text-align: center;
     background-color: rgb(65, 65, 65);
-   
 }
 
-.mat-column-online{
+.mat-column-online {
     text-align: center;
     align-items: center;
-    width : 50px;
+    width: 50px;
 }
-
 
 td.mat-cell:first-of-type, td.mat-footer-cell:first-of-type, th.mat-header-cell:first-of-type {
     text-align: left;
 }
 
-    table tr:nth-child(odd) {
+table tr:nth-child(odd) {
     background-color: #2d3436;
 }
 
@@ -56,12 +55,16 @@ table tr:nth-child(even) {
 }
 
 .online-state {
-   /* width: 50px; */
-   text-align: center;
-   border-radius: 5px;  
+    /* width: 50px; */
+    text-align: center;
+    border-radius: 5px;
 }
 
 .addtional-info {
     font-size: smaller;
     margin-left: 10px;
 }
+
+::ng-deep.mat-menu-panel {
+    max-width: none !important;
+  }

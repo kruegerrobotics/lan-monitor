@@ -8,7 +8,8 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'lan-mon-ang';
 
-  lastScanVar = "Tell me"
-  
+  //lastScanVar = "Tell me"
 }
+
+
 

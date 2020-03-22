@@ -1,28 +1,18 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row class="title">
         <span>{{lastScanVar}}</span>
-       
         <button mat-button (click)="onDeleteBtn()">
             <mat-icon>delete_outline</mat-icon>
         </button>
         <span class="flexExpand"></span>
-        <button mat-button [matMenuTriggerFor]="appMenu"> 
+        <button mat-button (click)="openDialog()">
             <mat-icon>settings_outline</mat-icon>
         </button>
     </mat-toolbar-row>
     <mat-toolbar-row class="subtitle">
         <span>{{scanArgsVar}}</span>
     </mat-toolbar-row>
-
-    <!-- <button mat-button (click)="sidenav.open ()" ><mat-icon>menu</mat-icon></button> -->
-
-
 </mat-toolbar>
-<mat-menu #appMenu="matMenu">
-    <p>In future here the scan can be configured</p>
-    <button mat-menu-item> Settings </button>
-    <button mat-menu-item> Help </button>
-</mat-menu>
 
 <table mat-table [dataSource]="devices" class="mat-z8">
     <!-- Position Column -->
