@@ -40,7 +40,7 @@ export class NetworkdeviceComponent implements OnInit {
   onWSMessage(event) {
     // console.log(event.data)
     let data = JSON.parse(event.data)
-    this.scanArgsVar = data["nmaprun"]["-args"]
+    this.scanArgsVar = "Args: " + data["nmaprun"]["-args"]
     this.lastScanVar = "Lastest scan: " + data["nmaprun"]["-startstr"]
 
     let hosts = data["nmaprun"]["host"]
@@ -132,7 +132,7 @@ export class NetworkdeviceComponent implements OnInit {
 
   activateErrorState(){
     this.lastScanVar = "ERROR connecting to server"
-    this.scanArgsVar = "refresh browser / check server"
+    this.scanArgsVar = "Refresh browser / check server"
   }
 
   c() {
