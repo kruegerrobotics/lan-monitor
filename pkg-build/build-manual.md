@@ -1,20 +1,23 @@
 # Build Manual
 
-Here the build procedure is described
+In this file the build procedure is described
 
 
 ## Dependencies
 
 In the [Dockerfile](../dockerimages/build-app/Dockerfile) for building all these are also listed
 
-### Debian
+### Required for Debian the build process 
 
 - fakeroot
 - dpkg
 - git
 - make
-- golang
 - python3 python3-git
+
+### Required for the server build (based on go)
+
+- golang
 
 ### Go packages
 
@@ -24,6 +27,12 @@ github.com/gorilla/websocket
 ### Python
 
 Python-git
+
+### The web UI component is based on Angular
+
+- npm
+
+npm is required to install angular and after cloning to install the used packages
 
 ## Build all
 
@@ -36,7 +45,7 @@ make -f build-deb-pkg.makefile
 
 Now all the executables, stand alone archives and Debian packages should be build
 
-## Clean up 
+## Clean up
 
 The delete all builded things run:
 
