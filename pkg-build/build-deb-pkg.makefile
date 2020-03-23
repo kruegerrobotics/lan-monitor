@@ -16,14 +16,15 @@ all : build_all_packages build_all_stand_alones
 
 compose_pkg_files : copy_www_files 
 
+#build the webcomponent
+build_webui :
+	cd ../webui-ang 
+	ng build --prod
+	
 #moving files to the destination dirs for buidling the package
 copy_www_files : 
 	mkdir -p ./$(HTML_DESTINATION_DIR)
-	cp ../www/index.html ./$(HTML_DESTINATION_DIR)/
-	cp -r ../www/img ./$(HTML_DESTINATION_DIR)/
-	cp -r ../www/js ./$(HTML_DESTINATION_DIR)/
-	cp -r ../www/lib ./$(HTML_DESTINATION_DIR)/
-
+	cp -r ../webui-ang/dist/lan-mon-ang/* ./$(HTML_DESTINATION_DIR)/
 
 build_all_stand_alones : lan-monitor_i386_linux_std_alone lan-monitor_amd64_linux_std_alone lan-monitor_armhf_linux_std_alone
 
