@@ -22,7 +22,7 @@ build_webui :
 	ng build --prod
 	
 #moving files to the destination dirs for buidling the package
-copy_www_files : 
+copy_www_files : build_webui
 	mkdir -p ./$(HTML_DESTINATION_DIR)
 	cp -r ../webui-ang/dist/lan-mon-ang/* ./$(HTML_DESTINATION_DIR)/
 
