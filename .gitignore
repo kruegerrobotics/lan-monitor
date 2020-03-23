@@ -85,3 +85,4 @@ webui-ang/typings
 # System Files
 webui-ang/.DS_Store
 webui-ang/Thumbs.db
+lan-monitor-server/scan.xml

@@ -1,58 +1,203 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.40 scan initiated Sun Feb  3 11:02:34 2019 as: nmap -p 22,80 -oX scan.xml 192.168.0.1/24 -->
-<nmaprun scanner="nmap" args="nmap -p 22,80 -oX scan.xml 192.168.0.1/24" start="1549188154" startstr="Sun Feb  3 11:02:34 2019" version="7.40" xmloutputversion="1.04">
-<scaninfo type="connect" protocol="tcp" numservices="2" services="22,80"/>
+<!-- Nmap 7.70 scan initiated Mon Mar 23 16:00:24 2020 as: nmap -&#45;top-ports 20 -oX scan.xml 192.168.10.1/24 -->
+<nmaprun scanner="nmap" args="nmap -&#45;top-ports 20 -oX scan.xml 192.168.10.1/24" start="1584975624" startstr="Mon Mar 23 16:00:24 2020" version="7.70" xmloutputversion="1.04">
+<scaninfo type="connect" protocol="tcp" numservices="20" services="21-23,25,53,80,110-111,135,139,143,443,445,993,995,1723,3306,3389,5900,8080"/>
 <verbose level="0"/>
 <debugging level="0"/>
-<host starttime="1549188154" endtime="1549188157"><status state="up" reason="syn-ack" reason_ttl="0"/>
-<address addr="192.168.0.1" addrtype="ipv4"/>
+<host starttime="1584975624" endtime="1584975626"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.10.1" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
-<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<ports><port protocol="tcp" portid="21"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="23"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="telnet" method="table" conf="3"/></port>
+<port protocol="tcp" portid="25"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
 <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="110"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+<port protocol="tcp" portid="111"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="135"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="msrpc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="netbios-ssn" method="table" conf="3"/></port>
+<port protocol="tcp" portid="143"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
+<port protocol="tcp" portid="993"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="995"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3s" method="table" conf="3"/></port>
+<port protocol="tcp" portid="1723"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pptp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3306"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="mysql" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5900"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="vnc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
 </ports>
-<times srtt="1853" rttvar="3551" to="100000"/>
+<times srtt="17407" rttvar="6831" to="100000"/>
 </host>
-<host starttime="1549188154" endtime="1549188157"><status state="up" reason="conn-refused" reason_ttl="0"/>
-<address addr="192.168.0.2" addrtype="ipv4"/>
-<hostnames>
-<hostname name="dnsserver" type="PTR"/>
-</hostnames>
-<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
-</ports>
-<times srtt="2706" rttvar="2985" to="100000"/>
-</host>
-<host starttime="1549188154" endtime="1549188157"><status state="up" reason="conn-refused" reason_ttl="0"/>
-<address addr="192.168.0.166" addrtype="ipv4"/>
-<hostnames>
-<hostname name="think-deb.tk.home" type="PTR"/>
-</hostnames>
-<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
-</ports>
-<times srtt="234" rttvar="2928" to="100000"/>
-</host>
-<host starttime="1549188154" endtime="1549188157"><status state="up" reason="conn-refused" reason_ttl="0"/>
-<address addr="192.168.0.192" addrtype="ipv4"/>
+<host starttime="1584975624" endtime="1584975626"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.10.10" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
-<ports><port protocol="tcp" portid="22"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
-<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
-</ports>
-<times srtt="31692" rttvar="22615" to="122152"/>
-</host>
-<host starttime="1549188154" endtime="1549188158"><status state="up" reason="syn-ack" reason_ttl="0"/>
-<address addr="192.168.0.239" addrtype="ipv4"/>
-<hostnames>
-</hostnames>
-<ports><port protocol="tcp" portid="22"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<ports><port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="23"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="telnet" method="table" conf="3"/></port>
+<port protocol="tcp" portid="25"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
 <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="110"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+<port protocol="tcp" portid="111"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="135"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="msrpc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="netbios-ssn" method="table" conf="3"/></port>
+<port protocol="tcp" portid="143"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
+<port protocol="tcp" portid="993"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="995"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3s" method="table" conf="3"/></port>
+<port protocol="tcp" portid="1723"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pptp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3306"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="mysql" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5900"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="vnc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
 </ports>
-<times srtt="5147" rttvar="4939" to="100000"/>
+<times srtt="18224" rttvar="5892" to="100000"/>
 </host>
-<runstats><finished time="1549188158" timestr="Sun Feb  3 11:02:38 2019" elapsed="4.09" summary="Nmap done at Sun Feb  3 11:02:38 2019; 256 IP addresses (5 hosts up) scanned in 4.09 seconds" exit="success"/><hosts up="5" down="251" total="256"/>
+<host starttime="1584975624" endtime="1584975626"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.10.76" addrtype="ipv4"/>
+<hostnames>
+<hostname name="media-server.tk.local" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="23"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="telnet" method="table" conf="3"/></port>
+<port protocol="tcp" portid="25"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="110"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+<port protocol="tcp" portid="111"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="135"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="msrpc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="netbios-ssn" method="table" conf="3"/></port>
+<port protocol="tcp" portid="143"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
+<port protocol="tcp" portid="993"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="995"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3s" method="table" conf="3"/></port>
+<port protocol="tcp" portid="1723"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pptp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3306"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="mysql" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5900"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="vnc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
+</ports>
+<times srtt="19792" rttvar="7051" to="100000"/>
+</host>
+<host starttime="1584975624" endtime="1584975626"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.10.85" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="22"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="23"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="telnet" method="table" conf="3"/></port>
+<port protocol="tcp" portid="25"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="110"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+<port protocol="tcp" portid="111"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="135"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="msrpc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="netbios-ssn" method="table" conf="3"/></port>
+<port protocol="tcp" portid="143"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
+<port protocol="tcp" portid="993"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="995"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3s" method="table" conf="3"/></port>
+<port protocol="tcp" portid="1723"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pptp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3306"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="mysql" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5900"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="vnc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
+</ports>
+<times srtt="27027" rttvar="33812" to="162275"/>
+</host>
+<host starttime="1584975624" endtime="1584975626"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.10.100" addrtype="ipv4"/>
+<hostnames>
+<hostname name="think-deb.tk.local" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="23"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="telnet" method="table" conf="3"/></port>
+<port protocol="tcp" portid="25"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="110"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="135"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="msrpc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="netbios-ssn" method="table" conf="3"/></port>
+<port protocol="tcp" portid="143"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
+<port protocol="tcp" portid="993"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="995"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3s" method="table" conf="3"/></port>
+<port protocol="tcp" portid="1723"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pptp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3306"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="mysql" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5900"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="vnc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
+</ports>
+<times srtt="178" rttvar="130" to="100000"/>
+</host>
+<host starttime="1584975624" endtime="1584975626"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.10.102" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="22"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="23"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="telnet" method="table" conf="3"/></port>
+<port protocol="tcp" portid="25"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="110"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+<port protocol="tcp" portid="111"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="135"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="msrpc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="netbios-ssn" method="table" conf="3"/></port>
+<port protocol="tcp" portid="143"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
+<port protocol="tcp" portid="993"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="995"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3s" method="table" conf="3"/></port>
+<port protocol="tcp" portid="1723"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pptp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3306"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="mysql" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5900"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="vnc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
+</ports>
+<times srtt="18207" rttvar="6379" to="100000"/>
+</host>
+<host starttime="1584975624" endtime="1584975626"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.10.202" addrtype="ipv4"/>
+<hostnames>
+<hostname name="build-srv.tk.local" type="PTR"/>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="ssh" method="table" conf="3"/></port>
+<port protocol="tcp" portid="23"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="telnet" method="table" conf="3"/></port>
+<port protocol="tcp" portid="25"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="smtp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="domain" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="110"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3" method="table" conf="3"/></port>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="rpcbind" method="table" conf="3"/></port>
+<port protocol="tcp" portid="135"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="msrpc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="netbios-ssn" method="table" conf="3"/></port>
+<port protocol="tcp" portid="143"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imap" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
+<port protocol="tcp" portid="993"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="imaps" method="table" conf="3"/></port>
+<port protocol="tcp" portid="995"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pop3s" method="table" conf="3"/></port>
+<port protocol="tcp" portid="1723"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="pptp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3306"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="mysql" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
+<port protocol="tcp" portid="5900"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="vnc" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="http-proxy" method="table" conf="3"/></port>
+</ports>
+<times srtt="16777" rttvar="6698" to="100000"/>
+</host>
+<runstats><finished time="1584975626" timestr="Mon Mar 23 16:00:26 2020" elapsed="2.73" summary="Nmap done at Mon Mar 23 16:00:26 2020; 256 IP addresses (7 hosts up) scanned in 2.73 seconds" exit="success"/><hosts up="7" down="249" total="256"/>
 </runstats>
 </nmaprun>
