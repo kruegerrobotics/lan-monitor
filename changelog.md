@@ -1,5 +1,16 @@
 # Changelog for the lan-monitor
 
+## v3.0.0
+
+- redesign of the web interface
+- webpart transitioned to Angular
+- allow to use the web interface to change the scan parameters
+- adaptations to the build
+- docker container build
+- bugfixes
+
+- messy merge of branch ux-upgrade with master, basically the ux-upgrade became the master
+
 ## v2.0.2
 
 - bugfixes
