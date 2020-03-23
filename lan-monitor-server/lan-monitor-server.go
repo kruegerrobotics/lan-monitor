@@ -12,6 +12,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"sync"
 	"time"
 
@@ -82,13 +83,14 @@ func echo(conn *websocket.Conn) {
 			config.NMAPParameters = m.Parameters
 			config.NMAPRange = m.Range
 
-			fmt.Println(m)
+			log.Println("New re-configuration request from: ", conn.RemoteAddr())
 			//save also to disk so that in case of server restart it is remembered
 			configJSON, _ := json.Marshal(config)
 			err := ioutil.WriteFile(configFileLocation, configJSON, 0644)
 			if err != nil {
-				log.Println("Storing new config in ", configFileLocation)
+				log.Println("Can not store the new config - attempt to store in:", configFileLocation)
 			}
+			log.Println("new configuration is: nmap", config.NMAPParameters, config.NMAPRange)
 			configLock.RUnlock()
 
 		}
@@ -132,16 +134,34 @@ func callNMAP() {
 
 	for {
 		configLock.Lock()
-		fmt.Println("nmap", config.NMAPParameters, "-oX", scanResultsFileName, config.NMAPRange)
-		cmd := exec.Command("nmap", config.NMAPParameters, "-oX", scanResultsFileName, config.NMAPRange)
+		cmdArgs := make([]string, 0)
+
+		//eliminate the spaces in the parameters
+		splitParams := strings.Split(config.NMAPParameters, " ")
+		for _, s := range splitParams {
+			cmdArgs = append(cmdArgs, s)
+		}
+
+		cmdArgs = append(cmdArgs, "-oX")
+		cmdArgs = append(cmdArgs, scanResultsFileName)
+
+		//eliminate the spaces in the ranges
+		splitRanges := strings.Split(config.NMAPRange, " ")
+		for _, s := range splitRanges {
+			cmdArgs = append(cmdArgs, s)
+		}
+
+		cmd := exec.Command("nmap", cmdArgs...)
 		configLock.Unlock()
-		log.Println("Init NMAP scan no:", counter)
+		log.Println("Init NMAP scan no:", counter, "as nmap", cmdArgs)
 		var out bytes.Buffer
 		cmd.Stdout = &out
+
 		err := cmd.Run()
 		if err != nil {
 			log.Println(err)
 		}
+		//fmt.Println("Nmap out:", out.String())
 		log.Println("Scan no.", counter, "complete")
 		counter = counter + 1
 

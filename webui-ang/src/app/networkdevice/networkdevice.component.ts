@@ -28,6 +28,10 @@ export class NetworkdeviceComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    //only for debugging (have the device populated with some dummy)
+    this.devices.length=0
+    
     //websocket (consider using a service here)
     this.ws = new WebSocket("ws://think-deb:8080/ws")
 
@@ -49,13 +53,16 @@ export class NetworkdeviceComponent implements OnInit {
   onWSMessage(event) {
     // console.log(event.data)
     let data = JSON.parse(event.data)
-    this.scanArgsVar = "Args: " + data["nmaprun"]["-args"]
     this.lastScanVar = "Lastest scan: " + data["nmaprun"]["-startstr"]
 
     this.parseArgs(data["nmaprun"]["-args"])
 
     //store this in the config dialog since it might have been changes from another location
     this.nmapArgsService.changeMessage(this.scanInfo)
+    
+    //display also the current scan (the xml file etc will be added automatically on server side)
+    this.scanArgsVar = "Args: " + this.scanInfo.parameters + " " + this.scanInfo.ipRange
+    
 
     //walk through the data
     let hosts = data["nmaprun"]["host"]
@@ -84,19 +91,31 @@ export class NetworkdeviceComponent implements OnInit {
       }
 
       tempObj.ports.splice(0, tempObj.ports.length)
-      host["ports"]["port"].forEach((port) => {
 
+      //if the scan is only covering one port there is no array and the parsing has to be different
+      if (Array.isArray(host["ports"]["port"]) == true) {
+        host["ports"]["port"].forEach((port) => {
+
+          let state = port["state"]["-state"]
+          if (state == "open") {
+            //console.log(tempObj.ipaddress + " " + port["-portid"])
+            // console.log(tempObj)
+            let p = port["-portid"]
+            tempObj.ports.push(Number(p))
+            //console.log("Ports for" + tempObj.hostname + " " + tempObj.ports)
+            //console.log(tempObj)      
+          }
+        })
+      } else {
+        let port = host["ports"]["port"]
         let state = port["state"]["-state"]
         if (state == "open") {
           //console.log(tempObj.ipaddress + " " + port["-portid"])
           // console.log(tempObj)
           let p = port["-portid"]
           tempObj.ports.push(Number(p))
-          //console.log("Ports for" + tempObj.hostname + " " + tempObj.ports)
-          //console.log(tempObj)      
         }
-      })
-
+      }
       //check if object is there
       //this.devices.find()
       let a = this.devices.find(x => x.ipaddress == tempObj.ipaddress)
@@ -178,7 +197,7 @@ export class NetworkdeviceComponent implements OnInit {
           let msg = {
             Command: "configure",
             Parameters: data.parameters,
-            Range : data.ipRange
+            Range: data.ipRange
           }
           this.ws.send(JSON.stringify(msg))
         }
@@ -189,7 +208,7 @@ export class NetworkdeviceComponent implements OnInit {
   parseArgs(nmapArgs: String) {
     const searchExp: String = "-oX scan.xml"
     let index = nmapArgs.search("-oX scan.xml");
-    this.scanInfo.parameters = nmapArgs.slice(5, index-1)
+    this.scanInfo.parameters = nmapArgs.slice(5, index - 1)
     this.scanInfo.ipRange = nmapArgs.slice(searchExp.length + index + 1, nmapArgs.length)
   }
 }
