@@ -18,7 +18,7 @@ compose_pkg_files : copy_www_files
 
 #build the webcomponent
 build_webui :
-	cd ../webui-ang 
+	cd ../webui-ang; \
 	ng build --prod
 	
 #moving files to the destination dirs for buidling the package
