@@ -21,6 +21,9 @@ pkg-build/build_armhf_linux_binary
 pkg-build/build_armhf_linux_pkg
 pkg-build/build_i386_linux_binary
 pkg-build/build_i386_linux_pkg
+
+pkg-build/lan-monitor_*
+
 pkg-build/lan-monitor/opt/*
 pkg-build/*.deb
 
