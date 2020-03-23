@@ -4,7 +4,7 @@ import { DEVICES } from '../mock-devices';
 import { MatTable, MatDialog, MatDialogConfig } from '@angular/material';
 import { ConfigDialogComponent } from '../config-dialog/config-dialog.component'
 import { NmapArgDataShareService, NmapArgs } from '../nmap-arg-data-share.service'
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-networkdevice',
   templateUrl: './networkdevice.component.html',
@@ -33,7 +33,8 @@ export class NetworkdeviceComponent implements OnInit {
     this.devices.length=0
     
     //websocket (consider using a service here)
-    this.ws = new WebSocket("ws://think-deb:8080/ws")
+    //the location is in the environment to switch between dev and production
+    this.ws = new WebSocket(environment.scannerLocation)
 
     this.ws.onopen = (event) => {
       let msg = { Command: "request" }
