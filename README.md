@@ -2,7 +2,13 @@
 
 ## Dowload here [github-release](https://github.com/KruDex/lan-monitor/releases/latest)
 
-**This are older releases and currently the updates describride below will be available as version v3.0.0 and higher**
+**This are older releases and currently the updates describride below will be available as version v3.0.0 and higher in the coming days**
+
+This is a general description for development details please read here:
+
+- Build
+- Docker dev-build
+- Docker run
 
 ## What it does
 
@@ -65,11 +71,7 @@ If running on Debian or a deb base package manager you can use the debian packag
 
 #### WARNINGS for debian package
 
-It automatically starts a webserver on port 8080. In case another application is using this port it will fail starting or prevents the other application from start. The port can be configured either in the config file */etc/lan-monitor.conf* or using the commandline option.
-
-##### Not everything is automatic or configurable by the web interface (yet)
-
-The ip range or adresses that are planned to scan are either set in the config file  */etc/lan-monitor.conf* or command line option.
+It automatically starts a webserver on port 8080. In case another application is using this port it will fail starting or prevents the other application from start. The port can be configured either in the config file. By default the config file will be /etc/lan-monitor.json.
 
 #### Installation procedure
 
