@@ -1,6 +1,6 @@
 {
-    "NMAPRange": "192.168.0.1/24",
-    "NMAPPorts": "22,80",
+    "NMAPRange": "192.168.10.1/24",
+    "NMAPParameters": "--top-ports 10",
     "HTTPPort": 8080,
     "ScanInterval": 120
 }
