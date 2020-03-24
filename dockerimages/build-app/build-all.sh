@@ -10,7 +10,7 @@ cd lan-monitor
 
 echo "building the web angular part"
 cd webui-ang
-npm install --silent
+echo y | npm install
 
 echo "building the go part"
 cd ..
