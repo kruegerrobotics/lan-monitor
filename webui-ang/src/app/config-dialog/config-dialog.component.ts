@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material";
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { NmapArgDataShareService, NmapArgs} from '../nmap-arg-data-share.service'
+import { VERSION } from '../../environments/version';
+
 @Component({
   selector: 'app-config-dialog',
   templateUrl: './config-dialog.component.html',
@@ -11,6 +13,7 @@ export class ConfigDialogComponent implements OnInit {
 
   form: FormGroup;
   scanInfo : NmapArgs;
+  version = VERSION.version
 
   constructor(
     private nmapArgsService: NmapArgDataShareService,

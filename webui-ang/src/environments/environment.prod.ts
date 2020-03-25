@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  scannerLocation : "ws://" + location.host + "/ws"
+  scannerLocation : "ws://" + location.host + "/ws",
 };

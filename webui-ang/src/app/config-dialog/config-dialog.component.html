@@ -14,10 +14,12 @@
     <mat-form-field>
         <input matInput placeholder="scan interval [seconds]" formControlName="scanInterval" type="number">
     </mat-form-field>
-
+    
 </mat-dialog-content>
 
 <mat-dialog-actions>
     <button class="mat-raised-button" (click)="close()">Close</button>
     <button class="mat-raised-button mat-primary" (click)="save()">Submit</button>
 </mat-dialog-actions>
+<br>
+<p id="versionlabel">Version: {{version}}</p>

@@ -96,13 +96,13 @@ build_i386_linux_binary :
 build_amd64_linux_binary : 
 	mkdir -p $@; 
 	cd ../lan-monitor-server; \
-	GOOS=linux GOARCH=amd64 go build -ldflags="-X main.version=$(VERSION)"
+	GOOS=linux GOARCH=amd64 go build -ldflags="-X version.version=$(VERSION)"
 	mv ../lan-monitor-server/lan-monitor-server $@/
 	
 build_armhf_linux_binary : 
 	mkdir -p $@; 
 	cd ../lan-monitor-server; \
-	GOOS=linux GOARCH=arm go build -ldflags="-X main.version=$(VERSION)"
+	GOOS=linux GOARCH=arm go build -ldflags="-X version.version=$(VERSION)"
 	mv ../lan-monitor-server/lan-monitor-server $@/
 
 test_amd64_vbox : build_amd64_linux_pkg

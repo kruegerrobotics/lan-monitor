@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  scannerLocation : "ws://think-deb:8080/ws"
+  scannerLocation : "ws://think-deb:8080/ws",
 };
 
 /*
