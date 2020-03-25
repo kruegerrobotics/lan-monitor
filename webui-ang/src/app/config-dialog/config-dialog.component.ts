@@ -26,7 +26,8 @@ export class ConfigDialogComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       ipRange: [this.scanInfo.ipRange, []],
-      parameters : [this.scanInfo.parameters, []]
+      parameters : [this.scanInfo.parameters, []],
+      scanInterval : [this.scanInfo.scaninterval, []]
     });
   }
 

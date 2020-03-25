@@ -28,10 +28,10 @@ export class NetworkdeviceComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     //only for debugging (have the device populated with some dummy)
-    this.devices.length=0
-    
+    this.devices.length = 0
+
     //websocket (consider using a service here)
     //the location is in the environment to switch between dev and production
     this.ws = new WebSocket(environment.scannerLocation)
@@ -52,18 +52,31 @@ export class NetworkdeviceComponent implements OnInit {
   }
 
   onWSMessage(event) {
-    // console.log(event.data)
     let data = JSON.parse(event.data)
+
+    //check if this was the nmap message or one of the internal status message
+    if (data.ServerStatus >= 0) {
+      //this is the internal config
+      this.scanInfo.scaninterval = data.ScanInterval
+      if (data.NMAPStatus != 0) {
+        let nmaperror = data.NMAPError.split("\n")
+        this.devices.length = 0
+        this.lastScanVar = "Warning: nmap scan failed"
+        this.scanArgsVar =  "Error msg: " + nmaperror[0]
+      }
+      return
+    }
+
     this.lastScanVar = "Lastest scan: " + data["nmaprun"]["-startstr"]
 
     this.parseArgs(data["nmaprun"]["-args"])
 
     //store this in the config dialog since it might have been changes from another location
     this.nmapArgsService.changeMessage(this.scanInfo)
-    
+
     //display also the current scan (the xml file etc will be added automatically on server side)
     this.scanArgsVar = "Args: " + this.scanInfo.parameters + " " + this.scanInfo.ipRange
-    
+
 
     //walk through the data
     let hosts = data["nmaprun"]["host"]
@@ -109,12 +122,15 @@ export class NetworkdeviceComponent implements OnInit {
         })
       } else {
         let port = host["ports"]["port"]
-        let state = port["state"]["-state"]
-        if (state == "open") {
-          //console.log(tempObj.ipaddress + " " + port["-portid"])
-          // console.log(tempObj)
-          let p = port["-portid"]
-          tempObj.ports.push(Number(p))
+        if (port) {
+          let state = port["state"]["-state"]
+
+          if (state == "open") {
+            //console.log(tempObj.ipaddress + " " + port["-portid"])
+            // console.log(tempObj)
+            let p = port["-portid"]
+            tempObj.ports.push(Number(p))
+          }
         }
       }
       //check if object is there
@@ -147,12 +163,10 @@ export class NetworkdeviceComponent implements OnInit {
   }
 
   onWSClose() {
-    console.log("ws closed")
     this.activateErrorState()
   }
 
   onWSError() {
-    console.log("ws error")
     this.activateErrorState()
   }
 
@@ -198,7 +212,8 @@ export class NetworkdeviceComponent implements OnInit {
           let msg = {
             Command: "configure",
             Parameters: data.parameters,
-            Range: data.ipRange
+            Range: data.ipRange,
+            ScanInterval: data.scanInterval
           }
           this.ws.send(JSON.stringify(msg))
         }

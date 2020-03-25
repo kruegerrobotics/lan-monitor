@@ -5,10 +5,12 @@ import { BehaviorSubject } from 'rxjs';
 export class NmapArgs {
   public ipRange: string
   public parameters: string
+  public scaninterval : number
 
   constructor(){
     this.ipRange = "undefined"
     this.parameters = "undefined"  
+    this.scaninterval = NaN
   }
 
 }
