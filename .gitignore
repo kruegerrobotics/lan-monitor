@@ -89,3 +89,4 @@ lan-monitor-server/scan.xml
 
 #version that should be generated during build process
 webui-ang/src/environments/version.ts
+webui-ang/src/environments/version.ts
