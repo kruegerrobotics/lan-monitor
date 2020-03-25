@@ -16,8 +16,13 @@ all : build_all_packages build_all_stand_alones
 
 compose_pkg_files : copy_www_files 
 
+#update the version in the webcomponent
+tagversion_webui : 
+	cd ../webui-ang; \
+	python3 updateversion.py
+
 #build the webcomponent
-build_webui :
+build_webui : tagversion_webui
 	cd ../webui-ang; \
 	ng build --prod
 	
