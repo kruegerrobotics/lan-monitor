@@ -25,4 +25,24 @@ sudo docker run -i -t lan-mon-builder:1.0
 
 ## run-app
 
+This container runs the full app
+
 **still in development** Docker image to run the whole application.
+
+### Build the image for running the app
+
+``` bash
+cd build-app
+docker image build -t lan-mon-runner:1.0 .
+```
+
+### Run the container for scanning
+
+This downloads downloads the lates release from github and runs it in the the container the port 8080 is exposed the webserver listens here. In the example we map this port to 6060.
+
+``` bash
+docker run --publish 6060:8080 -i -t lan-mon-runner:1.0
+```
+
+To see the result, just enter in your browser "localhost:6060"
+

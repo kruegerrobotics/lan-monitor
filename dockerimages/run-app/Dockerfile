@@ -4,8 +4,8 @@ RUN apt-get update
 RUN apt-get install wget -y
 RUN apt-get install nmap -y
 
-RUN wget https://github.com/kruegerrobotics/lan-monitor/releases/download/v2.0.1/lan-monitor_v2.0.1_amd64.deb
+COPY download_and_run.sh .
 
-RUN dpkg -i lan-monitor_v2.0.1_amd64.deb
+EXPOSE 8080
 
-CMD echo "still there" 
+CMD sh ./download_and_run.sh
