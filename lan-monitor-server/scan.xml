@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.70 scan initiated Thu Mar 26 11:59:50 2020 as: nmap -&#45;top-ports 10 -oX scan.xml 192.168.10.1/24 -->
-<nmaprun scanner="nmap" args="nmap -&#45;top-ports 10 -oX scan.xml 192.168.10.1/24" start="1585220390" startstr="Thu Mar 26 11:59:50 2020" version="7.70" xmloutputversion="1.04">
+<!-- Nmap 7.70 scan initiated Thu Mar 26 12:01:56 2020 as: nmap -&#45;top-ports 10 -oX scan.xml 192.168.10.1/24 -->
+<nmaprun scanner="nmap" args="nmap -&#45;top-ports 10 -oX scan.xml 192.168.10.1/24" start="1585220516" startstr="Thu Mar 26 12:01:56 2020" version="7.70" xmloutputversion="1.04">
 <scaninfo type="connect" protocol="tcp" numservices="10" services="21-23,25,80,110,139,443,445,3389"/>
 <verbose level="0"/>
 <debugging level="0"/>
-<host starttime="1585220390" endtime="1585220393"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<host starttime="1585220516" endtime="1585220518"><status state="up" reason="syn-ack" reason_ttl="0"/>
 <address addr="192.168.10.1" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
@@ -21,9 +21,9 @@
 <port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
 <port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
 </ports>
-<times srtt="6681" rttvar="4477" to="100000"/>
+<times srtt="11037" rttvar="3114" to="100000"/>
 </host>
-<host starttime="1585220390" endtime="1585220393"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<host starttime="1585220516" endtime="1585220518"><status state="up" reason="syn-ack" reason_ttl="0"/>
 <address addr="192.168.10.10" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
@@ -38,9 +38,9 @@
 <port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
 <port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
 </ports>
-<times srtt="5472" rttvar="3218" to="100000"/>
+<times srtt="7964" rttvar="5333" to="100000"/>
 </host>
-<host starttime="1585220390" endtime="1585220393"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<host starttime="1585220516" endtime="1585220518"><status state="up" reason="conn-refused" reason_ttl="0"/>
 <address addr="192.168.10.76" addrtype="ipv4"/>
 <hostnames>
 <hostname name="media-server.tk.local" type="PTR"/>
@@ -56,9 +56,9 @@
 <port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
 <port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
 </ports>
-<times srtt="7613" rttvar="2458" to="100000"/>
+<times srtt="6045" rttvar="3140" to="100000"/>
 </host>
-<host starttime="1585220390" endtime="1585220393"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<host starttime="1585220516" endtime="1585220518"><status state="up" reason="conn-refused" reason_ttl="0"/>
 <address addr="192.168.10.85" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
@@ -73,9 +73,9 @@
 <port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
 <port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
 </ports>
-<times srtt="21877" rttvar="7231" to="100000"/>
+<times srtt="21600" rttvar="6897" to="100000"/>
 </host>
-<host starttime="1585220390" endtime="1585220393"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<host starttime="1585220516" endtime="1585220518"><status state="up" reason="conn-refused" reason_ttl="0"/>
 <address addr="192.168.10.100" addrtype="ipv4"/>
 <hostnames>
 <hostname name="think-deb.tk.local" type="PTR"/>
@@ -91,9 +91,9 @@
 <port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
 <port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
 </ports>
-<times srtt="177" rttvar="383" to="100000"/>
+<times srtt="169" rttvar="441" to="100000"/>
 </host>
-<host starttime="1585220390" endtime="1585220393"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<host starttime="1585220516" endtime="1585220518"><status state="up" reason="conn-refused" reason_ttl="0"/>
 <address addr="192.168.10.102" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
@@ -108,9 +108,9 @@
 <port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
 <port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
 </ports>
-<times srtt="6605" rttvar="2965" to="100000"/>
+<times srtt="8786" rttvar="2147" to="100000"/>
 </host>
-<host starttime="1585220390" endtime="1585220396"><status state="up" reason="syn-ack" reason_ttl="0"/>
+<host starttime="1585220516" endtime="1585220521"><status state="up" reason="syn-ack" reason_ttl="0"/>
 <address addr="192.168.10.110" addrtype="ipv4"/>
 <hostnames>
 </hostnames>
@@ -125,9 +125,9 @@
 <port protocol="tcp" portid="445"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
 <port protocol="tcp" portid="3389"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
 </ports>
-<times srtt="120701" rttvar="229232" to="1037629"/>
+<times srtt="117236" rttvar="227128" to="1025748"/>
 </host>
-<host starttime="1585220390" endtime="1585220393"><status state="up" reason="conn-refused" reason_ttl="0"/>
+<host starttime="1585220516" endtime="1585220518"><status state="up" reason="conn-refused" reason_ttl="0"/>
 <address addr="192.168.10.202" addrtype="ipv4"/>
 <hostnames>
 <hostname name="build-srv.tk.local" type="PTR"/>
@@ -143,8 +143,8 @@
 <port protocol="tcp" portid="445"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="microsoft-ds" method="table" conf="3"/></port>
 <port protocol="tcp" portid="3389"><state state="closed" reason="conn-refused" reason_ttl="0"/><service name="ms-wbt-server" method="table" conf="3"/></port>
 </ports>
-<times srtt="6687" rttvar="3288" to="100000"/>
+<times srtt="8641" rttvar="2158" to="100000"/>
 </host>
-<runstats><finished time="1585220396" timestr="Thu Mar 26 11:59:56 2020" elapsed="5.20" summary="Nmap done at Thu Mar 26 11:59:56 2020; 256 IP addresses (8 hosts up) scanned in 5.20 seconds" exit="success"/><hosts up="8" down="248" total="256"/>
+<runstats><finished time="1585220521" timestr="Thu Mar 26 12:02:01 2020" elapsed="4.93" summary="Nmap done at Thu Mar 26 12:02:01 2020; 256 IP addresses (8 hosts up) scanned in 4.93 seconds" exit="success"/><hosts up="8" down="248" total="256"/>
 </runstats>
 </nmaprun>
