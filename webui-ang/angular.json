@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "lan-mon-ang"
+  "defaultProject": "lan-mon-ang",
+  "cli": {
+    "analytics": "fbeb0a74-9501-4034-a72a-c02c2e249b50"
+  }
 }
