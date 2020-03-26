@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Networkdevice } from '../networkdevice';
 import { DEVICES } from '../mock-devices';
-import { MatTable, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatTable } from '@angular/material/table';
 import { ConfigDialogComponent } from '../config-dialog/config-dialog.component'
 import { NmapArgDataShareService, NmapArgs } from '../nmap-arg-data-share.service'
 import { environment } from '../../environments/environment';
@@ -22,7 +23,7 @@ export class NetworkdeviceComponent implements OnInit {
 
   displayedColumns: string[] = ['hostname', 'online', 'ports'];
 
-  @ViewChild(MatTable, { static: false }) table: MatTable<any>;
+  @ViewChild(MatTable) table: MatTable<any>;
 
   constructor(private dialog: MatDialog, private nmapArgsService: NmapArgDataShareService) {
   }
