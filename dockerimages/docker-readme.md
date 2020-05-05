@@ -12,7 +12,7 @@ assuming we are in this folder
 
 ``` bash
 cd build-app
-docker docker image build -t lan-mon-builder:1.0 .
+docker image build -t lan-mon-builder:1.0 .
 ```
 
 ### Run the container
